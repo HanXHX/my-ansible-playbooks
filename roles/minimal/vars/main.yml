@@ -1,0 +1,2 @@
+debian_packport_url: "http://debian.proxad.net/debian-backports/"
+ntp_host: "fr.pool.ntp.org"

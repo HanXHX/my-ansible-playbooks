@@ -1,0 +1,28 @@
+---
+
+- name: Backports repository
+  apt_repository: repo='deb {{ debian_packport_url }} {{ ansible_distribution_release }}-backports main' state=present  
+
+- name: Update / Upgrade system 
+  apt: update_cache=yes upgrade=yes
+
+- name: few packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - bmon
+    - curl
+    - htop
+    - hping3
+    - gnupg
+    - iotop
+    - lynx
+    - netcat
+    - nmap 
+    - openntpd
+    - pwgen
+    - screen
+    - rsync
+    - tcpdump
+    - vim
+    
+
