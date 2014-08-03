@@ -15,7 +15,7 @@
   apt_repository: repo='deb http://{{ debian_backport_host }}/debian {{ ansible_distribution_release }}-backports main' state=present  
 
 - name: Delete default repository (sources.list) 
-  command: rm /etc/apt/sources.list
+  command: rm /etc/apt/sources.list removes=/etc/apt/sources.list
   ignore_errors: yes
 
 - name: Update APT 
@@ -29,6 +29,7 @@
     - htop
     - hping3
     - gnupg
+    - git
     - iotop
     - lynx
     - netcat
@@ -40,3 +41,8 @@
     - tcpdump
     - vim
     
+- name: bashrc for root
+  copy: src=bashrc dest=/root/.bashrc
+
+- name: vimrc for root
+  copy: src=vimrc dest=/root/.vimrc
