@@ -8,15 +8,13 @@
   - name: Add dotdeb main src
     apt_repository: repo='deb-src http://packages.dotdeb.org {{ ansible_distribution_release }} all' state=present
     
-  - debug: var=use_php55
-
   - name: Wheezy PHP 5.5
     include: wheezy_php55.yml
-    when: ansible_distribution_release == 'wheezy' and use_php55
+    when: ansible_distribution_release == 'wheezy' and dotdeb_php_version == '5.5' 
 
   - name: Squeeze PHP 5.4
     include: squeeze_php54.yml
-    when: ansible_distribution_release == 'squeeze' and use_php54
+    when: ansible_distribution_release == 'squeeze' and dotdeb_php_version == '5.4'
 
   - name: Update APT 
     apt: update_cache=yes

@@ -1,0 +1,2 @@
+# See: http://mariadb.org/mariadb/repositories/
+mariadb_repository: "http://ftp.igh.cnrs.fr/pub/mariadb/repo/{{ mariadb_version }}/debian"

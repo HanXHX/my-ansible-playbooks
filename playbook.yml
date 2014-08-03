@@ -4,3 +4,4 @@
   roles:
     - minimal
     - { role: dotdeb, when: use_dotdeb }
+    - { role: mariadb, when: use_database == 'mariadb' }

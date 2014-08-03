@@ -1,5 +1,6 @@
 use_dotdeb: true
-use_php55: false
-use_php54: false
-use_database: mariadb # (mariadb, mysql)
+use_php: false
+dotdeb_php_version: 5.5
+use_database: mariadb # (mariadb, mysql, none)
+mariadb_version: 10.0 # (5.5, 10.0, 10.1)
 php_timezone: Europe/Paris
