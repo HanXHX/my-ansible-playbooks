@@ -1,0 +1,5 @@
+---
+- name: Common ansible playbook
+  hosts: all
+  roles:
+    - minimal 

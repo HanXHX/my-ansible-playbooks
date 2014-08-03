@@ -1,2 +1,3 @@
-debian_packport_url: "http://debian.proxad.net/debian-backports/"
+debian_backport_host: "ftp.debian.org"
 ntp_host: "fr.pool.ntp.org"
+apt_default_host: "ftp.fr.debian.org"
