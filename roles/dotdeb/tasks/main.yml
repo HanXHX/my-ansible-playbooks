@@ -1,26 +1,22 @@
 ---
-# Common
-  - name: Add dotdeb main
-    apt_repository: repo='deb http://packages.dotdeb.org {{ ansible_distribution_release }}  all' state=present
-  - name: Add dotdeb main src
-    apt_repository: repo='deb-src http://packages.dotdeb.org {{ ansible_distribution_release }} all' state=present
   - name: APT | Install DotDeb key
     apt_key: url='http://www.dotdeb.org/dotdeb.gpg' state=present
-    tags: dotdeb
 
-# PHP 5.5 (only Debian Wheezy) else PHP 5.4
-  - name: Add dotdeb php55
-    apt_repository: repo='deb http://packages.dotdeb.org wheezy-php55 all' state=present
-    when: use_php55 and ansible_distribution_release = "wheezy"
-  - name: Add dotdeb php55 src
-    apt_repository: repo='deb-src http://packages.dotdeb.org wheezy-php55 all' state=present
-    when: use_php55 and ansible_distribution_release = "wheezy"
+  - name: Add dotdeb main
+    apt_repository: repo='deb http://packages.dotdeb.org {{ ansible_distribution_release }}  all' state=present
 
-# PHP 5.4 (only Debian Wheezy) else PHP 5.3
-  - name: Add dotdeb php54
-    apt_repository: repo='deb http://packages.dotdeb.org squeeze-php54 all' state=present
-    when: use_php54 and ansible_distribution_release = "squeeze"
-  - name: Add dotdeb php54 src
-    apt_repository: repo='deb-src http://packages.dotdeb.org squeeze-php54 all' state=present
-    when: use_php54 and ansible_distribution_release = "squeeze"
+  - name: Add dotdeb main src
+    apt_repository: repo='deb-src http://packages.dotdeb.org {{ ansible_distribution_release }} all' state=present
+    
+  - debug: var=use_php55
 
+  - name: Wheezy PHP 5.5
+    include: wheezy_php55.yml
+    when: ansible_distribution_release == 'wheezy' and use_php55
+
+  - name: Squeeze PHP 5.4
+    include: squeeze_php54.yml
+    when: ansible_distribution_release == 'squeeze' and use_php54
+
+  - name: Update APT 
+    apt: update_cache=yes

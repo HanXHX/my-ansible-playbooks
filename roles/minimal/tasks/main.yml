@@ -46,3 +46,6 @@
 
 - name: vimrc for root
   copy: src=vimrc dest=/root/.vimrc
+
+- name: Vim is my main editor
+  alternatives: name=editor path=/usr/bin/vim.basic

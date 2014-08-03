@@ -1,0 +1,5 @@
+  - name: Add dotdeb php55 (Wheezy)
+    apt_repository: repo='deb http://packages.dotdeb.org wheezy-php55 all' state=present
+
+  - name: Add dotdeb php55 src (Wheezy)
+    apt_repository: repo='deb-src http://packages.dotdeb.org wheezy-php55 all' state=present

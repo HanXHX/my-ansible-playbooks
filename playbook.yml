@@ -2,4 +2,5 @@
 - name: Common ansible playbook
   hosts: all
   roles:
-    - minimal 
+    - minimal
+    - { role: dotdeb, when: use_dotdeb }
