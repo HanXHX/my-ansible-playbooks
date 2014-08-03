@@ -49,3 +49,8 @@
 
 - name: Vim is my main editor
   alternatives: name=editor path=/usr/bin/vim.basic
+
+- name: Deploy SSH key
+  authorized_key: user=root key='{{ item }}'
+  with_file:
+    - public_keys/teemo.pub
