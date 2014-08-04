@@ -10,15 +10,14 @@ SCRIPT
 Vagrant.configure("2") do |config|
 
   config.vm.box = "debian"
+  config.vm.box_url = "https://dl.dropboxusercontent.com/s/xymcvez85i29lym/vagrant-debian-wheezy64.box"
   config.vm.network :private_network, ip: "192.168.33.13"
 
-#  config.vm.provision "shell", inline: $script
+  config.vm.provision "shell", inline: $script
 
-  config.vm.provision "ansible" do |ansible|
+  config.vm.provision :ansible do |ansible|
     ansible.playbook = "playbook.yml"
-	ansible.inventory_file = "ansible_hosts"
+#	ansible.inventory_file = "ansible_hosts"
 	ansible.sudo = true
   end
-
-
 end
