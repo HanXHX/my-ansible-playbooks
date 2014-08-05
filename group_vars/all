@@ -1,6 +1,34 @@
+# ----------------------------
+# General Configuration
+# ----------------------------
 use_dotdeb: true
-use_php: false
-dotdeb_php_version: 5.5
-use_database: mariadb # (mariadb, mysql, none)
-mariadb_version: 10.0 # (5.5, 10.0, 10.1)
-php_timezone: Europe/Paris
+use_php: true
+use_database: 'none' # (mariadb, mysql, none)
+use_redis: false
+use_nginx: false
+
+# ----------------------------
+# Dotdeb
+# ----------------------------
+dotdeb_php_version: '5.5'
+
+# ----------------------------
+# MySQL (common)
+# ----------------------------
+mysql_innodb_buffer_pool: '256MB'
+mysql_read_only: false
+
+## MariaDB
+mariadb_version: '10.0' # (5.5, 10.0, 10.1)
+
+# ----------------------------
+# PHP
+# ----------------------------
+
+## php.ini
+php_timezone: 'Europe/Paris'
+php_display_errors: 'On'
+php_display_startup_errors: 'On'
+php_error_reporting: 'E_ALL'
+
+## php-fpm

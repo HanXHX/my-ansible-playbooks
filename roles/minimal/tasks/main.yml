@@ -1,28 +1,30 @@
 ---
 
 # We MUST update cache... Ansible auto install python-apt
-- name: Update APT 
-  apt: update_cache=yes
+- name: APT | Update 
+  apt: update_cache=yes cache_valid_time=3600
 
-- name: Debian repository
+- name: APT | Add Debian repository
   apt_repository: repo='deb http://{{ apt_default_host }}/debian {{ ansible_distribution_release }} main contrib non-free' state=present  
 
-- name: Debian update repository
+- name: APT | Add Debian repository (src)
+  apt_repository: repo='deb-src http://{{ apt_default_host }}/debian {{ ansible_distribution_release }} main contrib non-free' state=present  
+
+- name: APT | Add Debian-updates repository
   apt_repository: repo='deb http://{{ apt_default_host }}/debian {{ ansible_distribution_release }}-updates main contrib non-free' state=present  
 
+- name: APT | Add Debian-updates repository (src)
+  apt_repository: repo='deb-src http://{{ apt_default_host }}/debian {{ ansible_distribution_release }}-updates main contrib non-free' state=present  
+
 # BUG: syntax is different between debian releases (check: http://backports.debian.org/Instructions/)
-- name: Backports repository
+- name: APT | Add Backports repository
   apt_repository: repo='deb http://{{ debian_backport_host }}/debian {{ ansible_distribution_release }}-backports main' state=present  
 
 - name: Delete default repository (sources.list) 
   command: rm /etc/apt/sources.list removes=/etc/apt/sources.list
-  ignore_errors: yes
 
-- name: Update APT 
-  apt: update_cache=yes upgrade=yes
-
-- name: few packages
-  apt: pkg={{ item }} state=latest
+- name: APT | Install few packages
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
     - bmon
     - curl
@@ -40,17 +42,21 @@
     - rsync
     - tcpdump
     - vim
+
+- name: TEMPLATE | Deploy OpenNTPd configuration file
+  template: src=ntpd.conf.j2 dest=/etc/openntpd/ntpd.conf
+  notify: restart openntpd
     
-- name: bashrc for root
+- name: COPY | bashrc for root
   copy: src=bashrc dest=/root/.bashrc
 
-- name: vimrc for root
+- name: COPY | vimrc for root
   copy: src=vimrc dest=/root/.vimrc
 
-- name: Vim is my main editor
+- name: UPDATE-ALTERNATIVE | Vim is my main editor
   alternatives: name=editor path=/usr/bin/vim.basic
 
-- name: Deploy SSH key
+- name: COPY | Deploy SSH key
   authorized_key: user=root key='{{ item }}'
   with_file:
     - public_keys/teemo.pub

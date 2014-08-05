@@ -1,0 +1,7 @@
+---
+  - name: APT | install redis
+    apt: pkg=redis-server state=latest update_cache=yes cache_limit_time=3600
+
+  - name: TEMPLATE | Deploy Redis config file
+    template: src=redis.conf.j2 dest=/etc/redis/redis.conf 
+    notify: restart redis

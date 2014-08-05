@@ -2,19 +2,15 @@
   - name: APT | Install DotDeb key
     apt_key: url='http://www.dotdeb.org/dotdeb.gpg' state=present
 
-  - name: Add dotdeb main
+  - name: APT | Add Dotdeb repository 
     apt_repository: repo='deb http://packages.dotdeb.org {{ ansible_distribution_release }}  all' state=present
 
-  - name: Add dotdeb main src
+  - name: APT | Add Dotdeb repository (src) 
     apt_repository: repo='deb-src http://packages.dotdeb.org {{ ansible_distribution_release }} all' state=present
     
   - name: Wheezy PHP 5.5
     include: wheezy_php55.yml
-    when: ansible_distribution_release == 'wheezy' and dotdeb_php_version == '5.5' 
-
-  - name: Squeeze PHP 5.4
-    include: squeeze_php54.yml
-    when: ansible_distribution_release == 'squeeze' and dotdeb_php_version == '5.4'
+    when: dotdeb_php_version == "5.5" 
 
   - name: Update APT 
-    apt: update_cache=yes
+    apt: update_cache=yes cache_valid_time=3600

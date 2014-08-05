@@ -1,0 +1,7 @@
+redis_listen_ip: 127.0.0.1
+#redis_listen_ip: 127.0.0.1
+redis_maxmemory: 128M
+redis_maxmemory-policy: volatile-lru
+redis_timeout: 0
+redis_loglevel: notice
+redis_appendonly: no

@@ -9,7 +9,7 @@
     apt_repository: repo='deb-src {{ mariadb_repository }} {{ ansible_distribution_release }}  main' state=present
 
 # Bug: percona-toolkit not in squeeze
-  - name: Install MariaDB with few related tools
+  - name: APT | Install MariaDB with few related tools
     apt: update_cache=yes pkg={{ item }} state=latest
     with_items: 
       - mariadb-server
