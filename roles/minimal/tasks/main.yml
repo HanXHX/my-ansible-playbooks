@@ -16,7 +16,7 @@
 - name: APT | Add Debian-updates repository (src)
   apt_repository: repo='deb-src http://{{ apt_default_host }}/debian {{ ansible_distribution_release }}-updates main contrib non-free' state=present  
 
-# BUG: syntax is different between debian releases (check: http://backports.debian.org/Instructions/)
+# POTENTIAL BUG: syntax is different between debian releases (check: http://backports.debian.org/Instructions/)
 - name: APT | Add Backports repository
   apt_repository: repo='deb http://{{ debian_backport_host }}/debian {{ ansible_distribution_release }}-backports main' state=present  
 
@@ -34,6 +34,7 @@
     - git
     - iotop
     - lynx
+    - most
     - netcat
     - nmap 
     - openntpd
@@ -56,7 +57,18 @@
 - name: UPDATE-ALTERNATIVE | Vim is my main editor
   alternatives: name=editor path=/usr/bin/vim.basic
 
-- name: COPY | Deploy SSH key
+- name: LOCALE | Add
+  locale_gen: name={{ item }} state=present
+  with_items: system_locales
+
+- name: TEMPLATE | Deploy default locale 
+  template: src=locale.j2 dest=/etc/default/locale
+
+- name: COPY | Set default timezone
+  copy: content={{ system_timezone }} dest=/etc/timezone owner=root group=root mode=0644
+  notify: [update timezone, restart cron]
+
+- name: Deploy SSH key for user root
   authorized_key: user=root key='{{ item }}'
   with_file:
     - public_keys/teemo.pub

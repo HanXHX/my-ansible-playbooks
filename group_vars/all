@@ -1,25 +1,38 @@
 # ----------------------------
-# General Configuration
+# Deploy these roles
 # ----------------------------
 use_php: false
 use_database: 'none' # (mariadb, mysql, none)
-use_redis: true
+use_redis: false
 use_nginx: false
+use_dotdeb: false
+
+
+# ----------------------------
+# General Configuration
+# ----------------------------
+system_locales:
+  - 'fr_FR.UTF-8'
+  - 'en_US.UTF-8'
+system_default_locale: 'fr_FR.UTF-8'
+system_timezone: 'Europe/Paris'
+
 
 # ----------------------------
 # Dotdeb
 # ----------------------------
-use_dotdeb: false
 dotdeb_php_version: '5.5'
 
+
 # ----------------------------
-# MySQL (common)
+# MySQL/MariaDB
 # ----------------------------
 mysql_innodb_buffer_pool: '256MB'
 mysql_read_only: false
 
 ## MariaDB
 mariadb_version: '10.0' # (5.5, 10.0, 10.1)
+
 
 # ----------------------------
 # PHP
@@ -32,3 +45,6 @@ php_display_startup_errors: 'On'
 php_error_reporting: 'E_ALL'
 
 ## php-fpm
+
+
+
