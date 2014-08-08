@@ -1,6 +1,10 @@
 ---
 - name: Common ansible playbook
   hosts: all
+  pre_tasks:
+    - name: Check host is Debian Wheezy 
+      fail: msg='Not a Debian Wheezy!'
+      when: ansible_distribution != 'Debian' or ansible_distribution_release != "wheezy"
   roles:
     - minimal
     - { role: dotdeb, when: use_dotdeb }
