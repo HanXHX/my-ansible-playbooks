@@ -4,5 +4,6 @@
   roles:
     - minimal
     - { role: dotdeb, when: use_dotdeb }
-    - { role: mariadb, when: use_database == 'mariadb' }
+    - { role: mysql, when: use_database == 'mariadb' or use_database == 'mysql' }
     - { role: php, when: use_php }
+    - { role: redis, when: use_redis }
