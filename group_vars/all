@@ -1,15 +1,15 @@
 # ----------------------------
 # General Configuration
 # ----------------------------
-use_php: true
-use_database: 'mysql' # (mariadb, mysql, none)
+use_php: false
+use_database: 'none' # (mariadb, mysql, none)
 use_redis: true
 use_nginx: false
 
 # ----------------------------
 # Dotdeb
 # ----------------------------
-use_dotdeb: true
+use_dotdeb: false
 dotdeb_php_version: '5.5'
 
 # ----------------------------
