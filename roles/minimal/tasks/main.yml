@@ -54,6 +54,9 @@
 - name: COPY | vimrc for root
   copy: src=vimrc dest=/root/.vimrc
 
+- name: Set hostname
+  hostname: name={{ hostname }}
+
 - name: UPDATE-ALTERNATIVE | Vim is my main editor
   alternatives: name=editor path=/usr/bin/vim.basic
 

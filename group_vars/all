@@ -11,11 +11,23 @@ use_dotdeb: false
 # ----------------------------
 # General Configuration
 # ----------------------------
+hostname: 'myserver.debianiste.org'
 system_locales:
   - 'fr_FR.UTF-8'
   - 'en_US.UTF-8'
 system_default_locale: 'fr_FR.UTF-8'
 system_timezone: 'Europe/Paris'
+hosts_whitelist:
+  - 127.0.0.1
+  - 192.168.0.0/16
+hosts_blacklist:
+  - 1.2.3.4
+  - 4.5.6.7
+
+
+# ----------------------------
+# Nginx
+# ----------------------------
 
 
 # ----------------------------
