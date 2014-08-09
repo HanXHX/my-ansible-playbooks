@@ -30,16 +30,19 @@
     - curl
     - htop
     - hping3
+    - gawk
     - gnupg
     - git
     - iotop
     - lynx
     - most
+    - mutt
     - netcat
     - nmap 
     - openntpd
     - pwgen
     - screen
+    - sudo
     - rsync
     - tcpdump
     - vim
@@ -59,6 +62,9 @@
 
 - name: UPDATE-ALTERNATIVE | Vim is my main editor
   alternatives: name=editor path=/usr/bin/vim.basic
+
+- name: UPDATE-ALTERNATIVE | Gawk (GNU awk) is the best
+  alternatives: name=awk path=/usr/bin/gawk
 
 - name: LOCALE | Add
   locale_gen: name={{ item }} state=present
