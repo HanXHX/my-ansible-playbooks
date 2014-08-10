@@ -1,0 +1,25 @@
+---
+  - name: APT | Install nginx 
+    apt: pkg={{ nginx_apt_package }} state=latest update_cache=yes cache_valid_time=3600
+
+  - name: TEMPLATE | Deploy nginx.conf
+    template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf 
+    notify: restart nginx 
+
+  - name: TEMPLATE | Add specific configuration
+    template: src=conf.d/general.conf.j2 dest=/etc/nginx/conf.d/general.conf
+    notify: reload nginx 
+
+  - name: FILE | Create root folders (foreach websites)
+    file: path={{ nginx_root }}/{{ item.name }}/public state=directory recurse=yes owner=www-data group=www-data mode=0755
+    with_items: websites
+
+  - name: TEMPLATE | Create vhosts
+    template: src=vhost/{{ item.vhost }}.j2 dest=/etc/nginx/sites-available/{{ item.name }}
+    with_items: websites 
+    notify: reload nginx 
+
+  - name: FILE | Enable vhosts
+    file: src=/etc/nginx/sites-available/{{ item.name }} dest=/etc/nginx/sites-enabled/{{ item.name }} state=link
+    with_items: websites 
+    notify: reload nginx 

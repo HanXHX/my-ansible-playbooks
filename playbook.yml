@@ -1,5 +1,5 @@
 ---
-- name: Common ansible playbook
+- name: Custom ansible playbook
   hosts: all
   pre_tasks:
     - name: Check host is Debian Wheezy 
@@ -11,3 +11,40 @@
     - { role: mysql, when: use_database == 'mariadb' or use_database == 'mysql' }
     - { role: php, when: use_php }
     - { role: redis, when: use_redis }
+    - { role: nginx, when: use_nginx }
+
+- name: Nginx/PHP-FPM ansible playbook
+  hosts: http_php 
+  roles:
+    - minimal
+    - { role: dotdeb, when: use_dotdeb }
+    - { role: nginx, php_config: 'local' }
+    - { role: php, fpm_listen: 'socket' }
+
+- name: Nginx Dedicated ansible playbook
+  hosts: http 
+  roles:
+    - minimal
+    - { role: dotdeb, when: use_dotdeb }
+    - { role: nginx, php_config: 'cluster' }
+
+- name: Dedicated PHP
+  hosts: php 
+  roles:
+    - minimal
+    - { role: dotdeb, when: use_dotdeb }
+    - { role: php, fpm_listen: 'all' }
+
+- name: Redis ansible playbook
+  hosts: redis 
+  roles:
+    - minimal
+    - { role: dotdeb, when: use_dotdeb }
+    - redis
+
+- name: MySQL ansible playbook
+  hosts: mysql 
+  roles:
+    - minimal
+    - { role: dotdeb, when: use_dotdeb }
+    - mysql

@@ -1,10 +1,11 @@
 # ----------------------------
 # Deploy these roles
 # ----------------------------
-use_php: false
+# TODO: remove me... later we will use group based configuration
+use_php: true
 use_database: 'none' # (mariadb, mysql, none)
 use_redis: false
-use_nginx: false
+use_nginx: true
 use_dotdeb: false
 
 
@@ -23,10 +24,13 @@ hosts_blacklist:
   - 1.2.3.4
   - 4.5.6.7
 
-
 # ----------------------------
 # Nginx
 # ----------------------------
+# --> nginx nginx-extras nginx-full nginx-light nginx-naxsi nginx-naxsi-ui
+nginx_apt_package: 'nginx-full'
+nginx_source: 'dotdeb'
+nginx_root: '/srv/sites/'
 
 
 # ----------------------------
@@ -43,6 +47,20 @@ mysql_read_only: false
 
 ## MariaDB
 mariadb_version: '10.0' # (5.5, 10.0, 10.1)
+
+
+# ----------------------------
+# Websites
+# ----------------------------
+websites:
+  - name: 'mysite1.com'
+    server_name: 'www.mysite1.com'
+    use_php: true
+    use_pagespeed: false
+    vhost: 'standard'
+    redirect_3O1_from:
+      - 'mysite1.com'
+      - 'new.mysite1.com'
 
 
 # ----------------------------
