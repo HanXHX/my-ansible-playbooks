@@ -77,7 +77,12 @@
   copy: content={{ system_timezone }} dest=/etc/timezone owner=root group=root mode=0644
   notify: [update timezone, restart cron]
 
+- name: SYSCTL | Tuning
+  sysctl: name={{ item.key }} value='{{ item.value }}' state=present 
+  with_items: sysctl_config
+
 - name: Deploy SSH key for user root
   authorized_key: user=root key='{{ item }}'
   with_file:
     - public_keys/teemo.pub
+

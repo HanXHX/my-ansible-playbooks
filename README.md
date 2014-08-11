@@ -9,7 +9,6 @@ The goal of this project is to create the "perfect" environement for PHP on Debi
 Ideas for future
 ----------------
 
-- Configure sysctl
 - Dedicated host per service with config generated (example for MySQL: innodb_buffer_pool = 75% available RAM)
 - Configure firewall per service used (tcp/3306 if mysql is installed)
 - Try [IRC module](http://docs.ansible.com/irc_module.html) (for fun only)
