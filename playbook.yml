@@ -19,14 +19,14 @@
     - minimal
     - { role: dotdeb, when: use_dotdeb }
     - { role: nginx, php_config: 'local' }
-    - { role: php, fpm_listen: 'socket' }
+    - { role: php, php_config: 'socket' }
 
 - name: Nginx Dedicated ansible playbook
   hosts: http 
   roles:
     - minimal
     - { role: dotdeb, when: use_dotdeb }
-    - { role: nginx, php_config: 'cluster' }
+    - { role: nginx, php_config: 'remote' }
 
 - name: Dedicated PHP
   hosts: php 

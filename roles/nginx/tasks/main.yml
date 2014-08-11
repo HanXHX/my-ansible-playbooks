@@ -10,6 +10,7 @@
     template: src=conf.d/general.conf.j2 dest=/etc/nginx/conf.d/general.conf
     notify: reload nginx 
 
+# Bug /var/dir/toto/public (owned by www-data:www-data) but  /var/dir/toto/ is not :(
   - name: FILE | Create root folders (foreach websites)
     file: path={{ nginx_root }}/{{ item.name }}/public state=directory recurse=yes owner=www-data group=www-data mode=0755
     with_items: websites
@@ -19,7 +20,11 @@
     with_items: websites 
     notify: reload nginx 
 
-  - name: FILE | Enable vhosts
+  - name: FILE | Enable vhosts (symlink to sites-enabled)
     file: src=/etc/nginx/sites-available/{{ item.name }} dest=/etc/nginx/sites-enabled/{{ item.name }} state=link
     with_items: websites 
     notify: reload nginx 
+
+  - name: Use PHP configuration
+    include: php_{{ php_config }}.yml
+    when: php_config is defined
