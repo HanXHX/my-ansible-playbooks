@@ -38,3 +38,4 @@
   - name: Use PHP configuration (TCP)
     include: php_fpm_tcp.yml
     when: php_fpm_socket is defined and php_fpm_socket == 'tcp'
+
