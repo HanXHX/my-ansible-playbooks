@@ -1,4 +1,8 @@
 ---
+- name: FAIL | Check parameters
+  fail: msg='Bad parmeters php_fpm_socket == unix | tcp'
+  when: php_fpm_socket != 'unix' and php_fpm_socket != 'tcp' 
+
 - name: APT | Install php packages
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
@@ -28,6 +32,16 @@
   when: use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='lt', strict=True)
 
 - name: TEMPLATE | Deploy PHP configuration file
-  template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini
+  template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini owner=root mode=0644
   notify: restart php-fpm
 
+# Bug! APCu with PHP 5.5+
+- name: TEMPLATE | Deploy module configurations
+  template: src=mods-available/{{ item }}.j2 dest=/etc/php5/mods-available/{{ item }} owner=root mode=0644
+  with_items:
+    - apcu.ini 
+  notify: restart php-fpm
+
+- name: INCLUDE | PHP-FPM socket type
+  include: fpm_unix_socket.yml
+  when: php_fpm_socket == 'unix'

@@ -11,7 +11,7 @@ server {
 	index index.htm index.html index.php;
 
 	location / {
-		try_files $uri $uri/ /index.php?q=$uri&$args;
+		try_files $uri $uri/ /index.php?q=$uri&$args @php;
 	}
 
 	include /etc/nginx/helpers/php;

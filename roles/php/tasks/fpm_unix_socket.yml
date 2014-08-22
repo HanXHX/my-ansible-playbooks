@@ -1,0 +1,17 @@
+---
+  - name: SHELL | list all files in /etc/php5/fpm/pool.d/
+    shell: ls -1 /etc/php5/fpm/pool.d/ | sed -r 's/\.conf$//g'
+    register: pools
+    changed_when: false
+
+  - name: FILE | Delete unmanaged pools
+    file: path=/etc/php5/fpm/pool.d/{{ item }}.conf state=absent
+    with_items: pools.stdout_lines 
+    when: item not in php_fpm_unix_sockets|map(attribute='pool_name')
+    notify: restart php-fpm
+
+  - name: TEMPLATE | Deploy PHP-FPM pools
+    template: src=pool.conf.j2 dest=/etc/php5/fpm/pool.d/{{ item.pool_name }}.conf
+    with_items: php_fpm_unix_sockets
+    notify: restart php-fpm
+

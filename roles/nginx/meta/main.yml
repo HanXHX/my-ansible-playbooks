@@ -2,4 +2,3 @@
 
 dependencies:
   - minimal
-  - { role: php, when: php_config == 'local' }
