@@ -1,22 +1,6 @@
 # ----------------------------
-# Deploy these roles
-# ----------------------------
-# TODO: remove me... later we will use group based configuration
-use_php: true
-use_database: 'none' # (mariadb, mysql, none)
-use_redis: false
-use_nginx: true
-use_dotdeb: false
-
-
-# ----------------------------
 # General Configuration
 # ----------------------------
-system_locales:
-  - 'fr_FR.UTF-8'
-  - 'en_US.UTF-8'
-system_default_locale: 'fr_FR.UTF-8'
-system_timezone: 'Europe/Paris'
 hosts_whitelist:
   - 127.0.0.1
   - 192.168.0.0/16
@@ -25,77 +9,7 @@ hosts_blacklist:
   - 4.5.6.7
 
 # ----------------------------
-# Nginx
-# ----------------------------
-# --> nginx nginx-extras nginx-full nginx-light nginx-naxsi nginx-naxsi-ui
-nginx_apt_package: 'nginx-full'
-nginx_source: 'dotdeb'
-nginx_root: '/srv/sites/'
-
-
-# ----------------------------
-# Dotdeb
-# ----------------------------
-dotdeb_php_version: '5.5'
-
-
-# ----------------------------
-# MySQL/MariaDB
-# ----------------------------
-mysql_innodb_buffer_pool: '256MB'
-mysql_read_only: false
-
-## MariaDB
-mariadb_version: '10.0' # (5.5, 10.0, 10.1)
-
-
-# ----------------------------
-# Websites
-# ----------------------------
-websites:
-  - name: 'mysite1.com'
-    server_name: 'www.mysite1.com'
-    use_php: true
-    use_pagespeed: false
-    vhost: 'standard'
-    redirect_3O1_from:
-      - 'mysite1.com'
-      - 'new.mysite1.com'
-
-
-# ----------------------------
 # PHP
 # ----------------------------
-
-## php.ini
-php_timezone: 'Europe/Paris'
-php_display_errors: 'On'
-php_display_startup_errors: 'On'
-php_error_reporting: 'E_ALL'
-
-## php-fpm
-# Host var?
-php_fpm_unix_sockets:
-  - pool_name: 'yeah'
-    mode: '0660'
-    user: 'www-data'
-    group: 'www-data'
-    file: '/var/run/php5-fpm.sock'
-    pm_max_children: 250
-    pm_start_servers: 10
-    pm_min_spare_servers: 10
-    pm_max_spare_servers: 20
-
-# not tested yet
-php_fpm_tcp_sockets:
-  - pool_name: 'easytcp'
-    user: 'www-data'
-    group: '{{ ansible_default_ipv4.address }}'
-    ip: '1.1.1.1'
-    port: 9000
-    pm_max_children: 250
-    pm_start_servers: 10
-    pm_min_spare_servers: 10
-    pm_max_spare_servers: 20
 
 
