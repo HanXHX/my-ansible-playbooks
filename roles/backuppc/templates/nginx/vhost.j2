@@ -1,14 +1,19 @@
 server {
 	listen 80;
-	server_name {{ nginx_server_name }}; 
-	access_log /var/log/nginx/{{ nginx_server_name }}.access_log;
-	error_log	/var/log/nginx/{{ nginx_server_name }}.error_log;
+	server_name {{ backuppc_server_name }}; 
+	access_log /var/log/nginx/{{ backuppc_server_name }}.access_log;
+	error_log	/var/log/nginx/{{ backuppc_server_name }}.error_log;
 
 	root /usr/share/backuppc/cgi-bin;
 
 	auth_basic "BackupPC admin";
 	auth_basic_user_file /etc/backuppc/htpasswd;
 	index /index.cgi;
+
+	location /backuppc/image {
+		alias /usr/share/backuppc/image;
+		expires 60d;
+	}
 
 	location ~ \.cgi$ {
 		gzip off;
