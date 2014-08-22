@@ -1,0 +1,3 @@
+nginx_server_name: backuppc.mydomain.tld
+backuppc_users:
+    - { user: test, pass: lol }

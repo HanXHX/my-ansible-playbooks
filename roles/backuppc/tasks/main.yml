@@ -1,0 +1,22 @@
+---
+
+- name: APT | Install BackupPC and few related tools 
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - backuppc
+    - fcgiwrap
+    - python-passlib
+  notify: [ restart backuppc, restart fcgiwrap ]
+
+- name: TEMPLATE | Deploy VHost on Nginx
+  template: src=nginx/vhost.j2 dest=/etc/nginx/sites-available/{{ nginx_server_name }}
+  notify: reload nginx
+
+- name: FILE | Enable Vhost 
+  file: src=/etc/nginx/sites-available/{{ nginx_server_name }} dest=/etc/nginx/sites-enabled/{{ nginx_server_name }} state=link
+  notify: [ reload nginx, restart fcgiwrap ]
+
+- name: HTPASSWD | Create user for BackupPC management
+  htpasswd: path=/etc/backuppc/htpasswd name={{ item.user }} password={{ item.pass }} owner=backuppc group=www-data mode=0640
+  with_items: backuppc_users
+  notify: reload nginx
