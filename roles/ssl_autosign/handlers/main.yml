@@ -1,0 +1,4 @@
+---
+
+- name: reload nginx 
+  action: service name=nginx state=reloaded enabled=yes

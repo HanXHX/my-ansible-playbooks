@@ -3,3 +3,4 @@
 dependencies:
   - minimal
   - nginx
+  - { role: ssl_autosign, ssl_domain: '{{ backuppc_server_name }}', when: backuppc_use_ssl == 'yes' }

@@ -1,0 +1,22 @@
+---
+- name: GET_URL | Download SSH key from BackupPC server (HTTPS)
+  get_url: url=https://{{ backuppc_server_name }}/share/id_rsa.pub dest=/root/.ansible/id_rsa_{{ backuppc_server_name }}.pub validate_certs=no
+  when: backuppc_use_ssl == 'yes'
+
+- name: GET_URL | Download SSH key from BackupPC server (HTTP)
+  get_url: url=http://{{ backuppc_server_name }}/share/id_rsa.pub dest=/root/.ansible/id_rsa_{{ backuppc_server_name }}.pub
+  when: backuppc_use_ssl == 'no'
+
+- name: Get SSH key content
+  command: cat '/root/.ansible/id_rsa_{{ backuppc_server_name }}.pub'
+  register: ssh_key_content
+  changed_when: false
+
+- name: AUTHORIZED_KEY | Set BackupPC's SSH Key to root
+  authorized_key: user=root key='{{ ssh_key_content.stdout }}'
+
+- name: TEMPLATE | Put config to BackupPC server
+  template: src=host_config.pl.j2 dest='/etc/backuppc/{{ ansible_fqdn }}.pl' owner=backuppc group=www-data mode=0640 
+  delegate_to: '{{ backuppc_server_name }}'
+
+

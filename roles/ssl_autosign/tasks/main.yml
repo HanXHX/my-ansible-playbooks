@@ -1,0 +1,17 @@
+---
+
+- name: APT | Install OpenSSL 
+  apt: pkg=openssl state=latest
+
+- name: FILE | Create ssl directory
+  file: path=/etc/nginx/ssl state=directory mode=0755 owner=root
+
+- name: COMMAND | Create SSL key
+  command: openssl req -new -nodes -x509 -subj "/C=FR/ST=RH/L=Lyon/O=IT/CN={{ ssl_domain }}" -days 3650 -out /etc/nginx/ssl/{{ ssl_domain }}.crt -keyout /etc/nginx/ssl/{{ ssl_domain }}.key
+  args: 
+    creates: '/etc/nginx/ssl/{{ ssl_domain }}.key'
+  notify: reload nginx
+
+- name: FILE | Secure SSL key (chmod)
+  file: path=/etc/nginx/ssl/{{ ssl_domain }}.key mode=0640 owner=root group=www-data
+

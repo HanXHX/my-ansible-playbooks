@@ -3,7 +3,7 @@ my-ansible-playbooks
 
 About
 -----
-This playbook works with: Ansible 1.6.10 and Vagrant 1.6.3
+This playbook works with: Ansible 1.7.1 and Vagrant 1.6.3
 The goal of this project is to create the "perfect" environement for PHP on Debian GNU/Linux.
 
 Ideas for future

@@ -1,0 +1,6 @@
+backuppc_host_backup_dir:
+  - /etc
+  - /root
+  - /var/www
+  - /home
+  - /srv

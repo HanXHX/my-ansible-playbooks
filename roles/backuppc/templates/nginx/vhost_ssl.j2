@@ -1,12 +1,21 @@
 server {
 	listen 80;
+	server_name {{ backuppc_server_name }};
+	return 301 https://{{ backuppc_server_name }};
+}
+
+server {
+	listen 443;
 	server_name {{ backuppc_server_name }}; 
 	access_log /var/log/nginx/{{ backuppc_server_name }}.access_log;
 	error_log	/var/log/nginx/{{ backuppc_server_name }}.error_log;
-
 	log_not_found off;
 
 	root /usr/share/backuppc/cgi-bin;
+
+	ssl on;
+	ssl_certificate /etc/nginx/ssl/{{ backuppc_server_name }}.crt;
+	ssl_certificate_key  /etc/nginx/ssl/{{ backuppc_server_name }}.key;
 
 	index index.cgi;
 
@@ -32,4 +41,5 @@ server {
 		auth_basic_user_file /etc/backuppc/htpasswd;
 	}
 }
+
 
