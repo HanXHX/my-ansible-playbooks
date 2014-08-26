@@ -15,21 +15,22 @@
     - php5-mcrypt
     - php5-mysqlnd 
     - php5-intl
+    - php5-dev
 
 - name: APT | Install php packages (specific Dotdeb)
   apt: pkg={{ item }} state=latest
   with_items:
     - php5-readline
     - php5-redis
-  when: use_dotdeb
+  when: use_dotdeb is defined and use_dotdeb
 
 - name: APT | Install php-apcu (PHP 5.5 only)
   apt: pkg=php5-apcu state=latest
-  when: use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='ge', strict=True)
+  when: use_dotdeb is defined and use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='ge', strict=True)
 
 - name: APT | Install php-apc (PHP 5.4 max only)
   apt: pkg=php5-apcu state=latest
-  when: use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='lt', strict=True)
+  when: use_dotdeb is defined and use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='lt', strict=True)
 
 - name: TEMPLATE | Deploy PHP configuration file
   template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini owner=root mode=0644

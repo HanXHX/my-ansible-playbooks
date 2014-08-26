@@ -1,0 +1,30 @@
+---
+
+- name: Install PHP newrelic
+  apt: update_cache=yes cache_valid_time=3600 pkg=newrelic-php5
+  notify: restart php-fpm
+
+- name: COMMAND | Get PHP extension dir
+  command: php-config --extension-dir
+  register: php_config_dir
+  changed_when: false
+
+- name: STAT | Check if module exists
+  stat: path='{{ php_config_dir.stdout }}/newrelic.so' follow=yes
+  register: newrelic_so
+  changed_when: false
+
+- name: Run install script
+  shell: 'NR_INSTALL_SILENT=1 newrelic-install install'
+  when: not newrelic_so.stat.exists
+  notify: 
+    - restart php-fpm
+    - restart newrelic-daemon
+
+- name: TEMPLATE | Deploy php newrelic config
+  template: src=newrelic.ini.j2 dest=/etc/php5/mods-available/newrelic.ini
+  notify: restart php-fpm
+
+- name: TEMPLATE | Deploy newrelic daemon config
+  template: src=newrelic.cfg.j2 dest=/etc/newrelic/newrelic.cfg
+  notify: restart newrelic-daemon 

@@ -1,0 +1,5 @@
+---
+
+dependencies:
+  - newrelic_common
+  - php

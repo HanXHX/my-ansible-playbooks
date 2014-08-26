@@ -7,12 +7,15 @@
       when: ansible_distribution != 'Debian' or ansible_distribution_release != "wheezy"
   roles:
     - minimal
+    - php
+    - nginx
+    - newrelic-php 
 #    - { role: dotdeb, when: use_dotdeb }
 #    - { role: mysql, when: use_database == 'mariadb' or use_database == 'mysql' }
 #    - { role: php, php_fpm_socket: 'unix', when: use_php }
 #    - { role: redis, when: use_redis }
 #    - { role: nginx, php_fpm_socket: 'unix', when: use_nginx }
-    - backuppc
+#    - backuppc
 
 #- name: Nginx/PHP-FPM ansible playbook
 #  hosts: http_php 
