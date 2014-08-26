@@ -1,0 +1,5 @@
+---
+
+dependencies:
+  - minimal
+  - mysql_common
