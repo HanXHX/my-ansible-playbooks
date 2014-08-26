@@ -1,1 +1,14 @@
 nginx_apt_package: nginx-full
+nginx_root: /var/www
+websites: []
+php_fpm_unix_sockets:
+  - pool_name: 'www'
+    mode: '0660'
+    user: 'www-data'
+    group: 'www-data'
+    file: '/var/run/php5-fpm.sock'
+    pm_max_children: 250
+    pm_start_servers: 10
+    pm_min_spare_servers: 10
+    pm_max_spare_servers: 20
+

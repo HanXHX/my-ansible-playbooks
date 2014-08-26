@@ -1,1 +1,2 @@
 hostname: 'myserver.debianiste.org'
+php_fpm_socket: 'unix'

@@ -1,0 +1,11 @@
+---
+
+- name: restart php-fpm
+  action: service name=php5-fpm state=restarted
+
+- name: restart nginx
+  action: service name=nginx state=restarted
+  ignore_errors: yes
+
+- name: restart newrelic-daemon 
+  action: service name=nginx state=restarted enabled=yes
