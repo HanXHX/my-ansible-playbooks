@@ -1,0 +1,4 @@
+phalcon_version: 1.3.2
+phalcon_url: https://github.com/phalcon/cphalcon/archive/phalcon-v{{ phalcon_version }}.tar.gz
+phalcon_root_dir: /opt/phalcon
+phalcon_build_dir: "{{ phalcon_root_dir }}/v{{ phalcon_version }}/cphalcon-phalcon-v{{ phalcon_version }}/build/64bits"
