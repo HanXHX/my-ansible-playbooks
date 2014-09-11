@@ -1,0 +1,9 @@
+---
+
+- name: APT | Install php-xdebug
+  apt: pkg=php5-xdebug state=latest update_cache=yes cache_valid_time=3600
+
+- name: TEMPLATE | Deploy module configurations
+  template: src=xdebug.ini.j2 dest=/etc/php5/mods-available/{{ item }} owner=root mode=0644
+  notify: restart php-fpm
+
