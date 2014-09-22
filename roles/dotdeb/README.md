@@ -8,9 +8,9 @@ Actions
 
 Variables
 ---------
-- dotdeb\_php\_version: specify PHP version (works only with 5.5) 
+- dotdeb\_php\_version: specify PHP version (works only with 5.5 or 5.6) 
 
 
 Notes
 -----
-- Provide 2 versions of PHP: 5.4 and 5.5
+- Provide 3 versions of PHP: 5.4, 5.5, 5.6

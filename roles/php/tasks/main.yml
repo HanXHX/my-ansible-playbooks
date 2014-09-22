@@ -24,7 +24,7 @@
     - php5-redis
   when: use_dotdeb is defined and use_dotdeb
 
-- name: APT | Install php-apcu (PHP 5.5 only)
+- name: APT | Install php-apcu (PHP 5.5+ only)
   apt: pkg=php5-apcu state=latest
   when: use_dotdeb is defined and use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='ge', strict=True)
 
