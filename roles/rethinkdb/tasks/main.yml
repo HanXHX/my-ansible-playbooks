@@ -1,0 +1,10 @@
+---
+
+- name: APT_KEY | Install RethinkDB key
+  apt_key: url='http://download.rethinkdb.com/apt/pubkey.gpg' state=present
+
+- name: APT_REPOSITORY | Add RethinkDB repository
+  apt_repository: repo='deb http://download.rethinkdb.com/apt {{ ansible_distribution_release }} main' state=present
+
+- name: APT | Install MariaDB
+  apt: update_cache=yes cache_valid_time=3600 pkg=rethinkdb state=latest
