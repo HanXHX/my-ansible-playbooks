@@ -16,6 +16,7 @@ server {
 	ssl on;
 	ssl_certificate /etc/nginx/ssl/{{ backuppc_server_name }}.crt;
 	ssl_certificate_key  /etc/nginx/ssl/{{ backuppc_server_name }}.key;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 
 	index index.cgi;
 
