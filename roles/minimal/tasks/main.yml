@@ -58,6 +58,10 @@
     - tcpdump
     - vim
 
+- name: APT | Install Intel Microcode if needed
+  apt: pkg=intel-microcode state=latest
+  when: ansible_processor[0].find('Intel') != -1
+
 - name: TEMPLATE | Deploy OpenNTPd configuration file
   template: src=ntpd.conf.j2 dest=/etc/openntpd/ntpd.conf
   notify: restart openntpd
