@@ -1,0 +1,17 @@
+# /etc/aliases
+mailer-daemon: postmaster
+postmaster: root
+nobody: root
+hostmaster: root
+usenet: root
+news: root
+webmaster: root
+www: root
+ftp: root
+abuse: root
+noc: root
+security: root
+{{ postfix_bounce_user }}: |"/usr/local/bin/adm_mutual_bounce_management.pl -u '{{ postfix_url_bounce }}'" 
+{% if root_email %}
+root: {{ root_email }}
+{% endif %}

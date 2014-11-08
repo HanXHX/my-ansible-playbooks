@@ -1,0 +1,74 @@
+---
+
+- name: FAIL | Check domain
+  fail: msg='mta_domain is not defined'
+  when: not mta_domain
+
+- name: APT | Remove useless MTAs
+  apt: pkg={{ item }} state=absent
+  with_items:
+    - exim4
+    - qmail
+    - sendmail
+
+- name: APT | Install Postfix and related tools
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - libhttp-message-perl
+    - libmail-deliverystatus-bounceparser-perl
+    - libwww-perl
+    - opendkim
+    - opendkim-tools
+    - postfix
+    - swaks
+
+- name: CPANM | Install few libs
+  cpanm: name={{ item }} notest=True
+  with_items:
+    - Email::ARF::Hotmail
+    - Email::ARF::Report
+
+- name: FILE | Create script dir
+  file: path=/etc/postfix/scripts state=directory mode=0755
+
+- name: TEMPLATE | Deploy main.cf
+  template: src=etc/postfix/main.cf.j2 dest=/etc/postfix/main.cf
+  notify: reload postfix
+
+- name: TEMPLATE | Deploy master.cf
+  template: src=etc/postfix/master.cf.j2 dest=/etc/postfix/master.cf
+  notify: reload postfix
+
+- name: TEMPLATE | Deploy aliases 
+  template: src=etc/aliases.j2 dest=/etc/aliases
+  notify: newaliases
+
+- name: FILE | Create keys directories
+  file: path={{ opendkim_domain_keys_dir }} state=directory mode=0755 owner=root group=opendkim
+
+- name: COMMAND | Create keys
+  command: opendkim-genkey -b 1024 -d {{ mta_domain }} -s {{ opendkim_selector }}
+  args:
+    chdir: '{{ opendkim_domain_keys_dir }}'
+    creates: '{{ opendkim_private_key }}'
+  notify: restart opendkim
+
+- name: TEMPLATE | Deploy bounce script
+  template: src=usr/local/bin/adm_mutual_bounce_management.pl dest=/usr/local/bin/adm_mutual_bounce_management.pl mode=0755
+  notify: newaliases
+
+- name: TEMPLATE | Deploy configuration
+  template: src=etc/opendkim.conf.j2 dest=/etc/opendkim.conf mode=0644
+  notify: restart opendkim
+
+- name: TEMPLATE | Deploy default launcher
+  template: src=etc/default/opendkim.j2 dest=/etc/default/opendkim mode=0644
+  notify: restart opendkim
+
+- name: COMMAND | Get TXT (DKIM) 
+  command: cat '{{ opendkim_txt_record }}'
+  register: dkim
+  changed_when: false
+
+- name: DEBUG | Display entry
+  debug: var=dkim.stdout

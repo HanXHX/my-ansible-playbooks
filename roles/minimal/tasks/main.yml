@@ -1,5 +1,13 @@
 ---
 
+- name: HOSTNAME 
+  hostname: name={{ hostname }}
+  notify: restart rsyslog
+
+- name: TEMPLATE | Cleanup /etc/hosts
+  template: src=hosts.j2 dest=/etc/hosts
+  notify: restart rsyslog
+
 # We MUST update cache... Ansible auto install python-apt
 - name: APT | Update 
   apt: update_cache=yes cache_valid_time=3600
@@ -27,6 +35,7 @@
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
     - bmon
+    - cpanminus
     - curl
     - htop
     - hping3
@@ -35,12 +44,14 @@
     - git
     - iotop
     - lynx
+    - make
     - most
     - mutt
     - netcat
     - nmap 
     - openntpd
     - pwgen
+    - rsyslog
     - screen
     - sudo
     - rsync
@@ -56,9 +67,6 @@
 
 - name: COPY | vimrc for root
   copy: src=vimrc dest=/root/.vimrc
-
-- name: Set hostname
-  hostname: name={{ hostname }}
 
 - name: UPDATE-ALTERNATIVE | Vim is my main editor
   alternatives: name=editor path=/usr/bin/vim.basic

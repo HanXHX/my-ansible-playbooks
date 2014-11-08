@@ -5,5 +5,8 @@
 - name: restart cron
   action: service name=cron state=restarted enabled=yes
 
+- name: restart rsyslog 
+  action: service name=rsyslog state=restarted enabled=yes
+
 - name: update timezone
   command: dpkg-reconfigure -f noninteractive tzdata

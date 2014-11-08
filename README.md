@@ -35,7 +35,6 @@ Ideas for future
   - [Redis Sentinel](http://redis.io/topics/sentinel) (Redis 2.8 available at Dotdeb and Backports)
   - [Redis Cluster](http://redis.io/topics/cluster-tutorial) (Redis 3.x still in beta)
   - [Elasticsearch](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html)
-  - Postfix
   - [Jenkins](http://pkg.jenkins-ci.org/debian/) with [Jenkins-PHP](http://jenkins-php.org/)
   - [Gitlab](https://about.gitlab.com/downloads/)
 - Web interfaces:
