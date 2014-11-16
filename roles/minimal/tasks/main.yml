@@ -37,11 +37,12 @@
     - bmon
     - cpanminus
     - curl
-    - htop
-    - hping3
+    - cron-apt
     - gawk
     - gnupg
     - git
+    - htop
+    - hping3
     - iotop
     - lynx
     - make
@@ -52,9 +53,9 @@
     - openntpd
     - pwgen
     - rsyslog
+    - rsync
     - screen
     - sudo
-    - rsync
     - tcpdump
     - vim
 
