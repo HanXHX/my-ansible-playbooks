@@ -12,4 +12,4 @@ Actions
 Variables
 ---------
 - hostname: FQDN of current host (common with "minimal" role)
-- backuppc_server_name: hostname (Vhost) of current BackupPC server (common with "backuppc" role)
+- backuppc\_server\_name: hostname (Vhost) of current BackupPC server (common with "backuppc" role)

@@ -16,6 +16,7 @@
     - php5-mysqlnd 
     - php5-intl
     - php5-dev
+    - geoip-database-contrib
 
 - name: APT | Install php packages (specific Dotdeb)
   apt: pkg={{ item }} state=latest

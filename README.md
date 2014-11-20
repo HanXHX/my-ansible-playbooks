@@ -6,29 +6,37 @@ About
 This playbook works with: Ansible 1.7.1 and Vagrant 1.6.3
 The goal of this project is to create the "perfect" environement for PHP on Debian GNU/Linux.
 
+TODO List
+---------
+
+- Manage MySQL versions: on debian wheezy repository => 5.5, on dotdeb => 5.6
+- Create MySQL users/databases... Find any tip to create table?
+- Split security role (should by a 'metarole') on many roles: firewall, fail2ban... etc
+- Create standard users (with sudo)
+- PHP-FPM socket = tcp
+- Better "save" management in redis. Use a loop instead of using save, save2, save3...
+- Use array of hashes for sysctl (minimal role), keys/values are hard coded :/
+
+
 Ideas for future
 ----------------
 
-- Dedicated host per service with config generated (example for MySQL: innodb_buffer_pool = 75% available RAM)
+- Dedicated host per service with config generated (example for MySQL: innodb\_buffer\_pool = 75% available RAM)
 - Configure firewall per service used (tcp/3306 if mysql is installed)
 - Try [IRC module](http://docs.ansible.com/irc_module.html) (for fun only)
 - Try Vagrant with many hosts (example: DB1 Master, DB2 Slave, Nginx proxy-cache, Nginx+PHP/FPM)
 - Manage Debian Jessie (current testing). For example: Jessie doesn't have yet Dotdeb and Backport repository. Create 2 branches?
 - IPv6 management (works with Vagrant/Virtualbox?)
 - Better bashrc/vimrc
-- Create standard users (with sudo)
 - Better management of OpenSSH
 - Auto install and configure Wordpress :)
 - Syslog to...? :)
 - Monitoring (Nagios or Shinken)
 - Nginx:
-  - Vhost management
-  - SSL/TLS management
   - No-www redirect to www...
   - Reverse proxy cache
-  - Have fun with [ngx_pagespeed](https://github.com/pagespeed/ngx_pagespeed) (available in Dotdeb: nginx-full... find any others place)
+  - Have fun with [ngx\_pagespeed](https://github.com/pagespeed/ngx_pagespeed) (available in Dotdeb: nginx-full... find any others place)
 - MySQL:
-  - Create user/databases
   - Manage replication
 - Services:
   - PostgreSQL
@@ -43,10 +51,7 @@ Ideas for future
   - [PHPRedmin](https://github.com/sasanrose/phpredmin)
 - PHP:
   - zmq
-  - geoip
-  - [Composer](http://getcomposer.org)
-  - [Phalcon](http://phalconphp.com/)
-  - [phpredis](https://github.com/nicolasff/phpredis) (Debian Package only available on Debian Jessie/Sid) + feature: Session management in Redis
+  - [phpredis](https://github.com/nicolasff/phpredis) (Debian Package only available on Debian Jessie/Sid or Dotdeb) + feature: Session management in Redis
 - Support FreeBSD!
 
 Notes

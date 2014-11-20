@@ -9,7 +9,7 @@ Actions
 
 Variables
 ---------
-- nginx\_apt_package : (nginx, nginx-extras, nginx-full, nginx-light, nginx-naxsi)
+- nginx\_apt\_package : (nginx, nginx-extras, nginx-full, nginx-light, nginx-naxsi)
 - nginx\_root : root folder to create each sites
 
 ### Create each vhosts and sites: 
