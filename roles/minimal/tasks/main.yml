@@ -41,6 +41,7 @@
     - gawk
     - gnupg
     - git
+   #- glances #NOTE: only Debian Jessie+
     - htop
     - hping3
     - iotop
@@ -50,6 +51,7 @@
     - mutt
     - netcat
     - nmap 
+    - nmon
     - openntpd
     - pwgen
     - rsyslog
