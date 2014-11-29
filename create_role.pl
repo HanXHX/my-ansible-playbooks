@@ -9,9 +9,10 @@ my $dirs = {
 	'defaults' => 0,
 	'files' => 0,
 	'handlers' => 0,
+	'meta' => 1,
 	'tasks' => 1,
 	'templates' => 0,
-	'meta' => 1
+	'vars' => 0
 };
 
 my $role_name = undef;
@@ -22,7 +23,8 @@ GetOptions(
 	'files' => sub { $dirs->{files} = 1 },
 	'handlers' => sub { $dirs->{handlers} = 1 },
 	'tasks' => sub { $dirs->{tasks} = 1 },
-	'templates' => sub { $dirs->{templates} = 1 }
+	'templates' => sub { $dirs->{templates} = 1 },
+	'vars' => sub { $dirs->{vars} = 1 }
 );
 
 
@@ -49,10 +51,10 @@ while(my ($dir, $action) = each %{$dirs})
 
 	my $cdirmain = sprintf('%s/%s/main.yml', $base_dir, $dir);
 
-	next if(-f $cdirmain || $dir !~ /^(defaults|tasks|meta)$/);
+	next if(-f $cdirmain || $dir !~ /^(defaults|tasks|meta|vars|handlers)$/);
 
 	open(MAIN, '>', $cdirmain) or die($cdirmain);
-	print MAIN "---\n\n" if $dir eq 'tasks';
+	print MAIN "---\n\n" if $dir =~ '/(tasks|handlers)';
 	print MAIN "---
 
 dependencies:

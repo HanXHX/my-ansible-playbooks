@@ -1,0 +1,13 @@
+---
+
+- name: INCLUDE | PHP tools 
+  include: php.yml
+
+- name: INCLUDE | APT related (install) 
+  include: apt.yml
+
+- name: INCLUDE | Get Jenkins CLI tool 
+  include: cli.yml
+
+- name: INCLUDE | Install plugins 
+  include: plugins.yml

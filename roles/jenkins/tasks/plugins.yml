@@ -1,0 +1,19 @@
+---
+
+- name: GET_URL | Update plugin list
+  get_url: url=http://updates.jenkins-ci.org/update-center.json dest={{ jenkins_update_json }} mode=0440
+  register: plugin_updates
+
+- name: SHELL | Update plugin list in Jenkins
+  shell: "sed '1d;$d' {{ jenkins_update_json }} | curl -X POST -H 'Accept: application/json' -d @- http://localhost:8080/updateCenter/byId/default/postBack"
+  when: plugin_updates.changed
+
+- name: SHELL | List plugins
+  shell: java -jar {{ jenkins_cli }} -s http://localhost:8080 list-plugins | cut -f 1 -d ' '
+  register: plugins_installed
+
+- name: COMMAND | Install Jenkins plugins
+  command: java -jar {{ jenkins_cli }} -s http://localhost:8080 install-plugin {{ item }}
+  with_items: jenkins_plugins
+  when: plugins_installed.changed and plugins_installed.stdout.find('{{ item }}') == -1
+  notify: safe-restart jenkins

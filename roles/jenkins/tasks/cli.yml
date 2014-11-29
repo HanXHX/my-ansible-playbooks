@@ -1,0 +1,10 @@
+---
+
+- name: FILE | Create Jenkins tools dir
+  file: path={{ jenkins_dir }} state=directory
+
+- name: STAT | Check CLI exists
+  stat: path={{ jenkins_cli }}
+
+- name: GET_URL | Get Jenkins CLI
+  get_url: url=http://localhost:8080/jnlpJars/jenkins-cli.jar dest={{ jenkins_cli }} mode=0440
