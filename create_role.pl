@@ -3,15 +3,15 @@
 use strict;
 use warnings;
 use feature qw/say/;
-use Data::Dumper;
 use Getopt::Long;
 
 my $dirs = {
-	'defaults' => 1,
+	'defaults' => 0,
 	'files' => 0,
 	'handlers' => 0,
 	'tasks' => 1,
-	'templates' => 0
+	'templates' => 0,
+	'meta' => 1
 };
 
 my $role_name = undef;
@@ -49,14 +49,15 @@ while(my ($dir, $action) = each %{$dirs})
 
 	my $cdirmain = sprintf('%s/%s/main.yml', $base_dir, $dir);
 
-	print Dumper $cdirmain;
-
-	next if(-f $cdirmain || $dir !~ /^(defaults|tasks)$/);
-
-	say "aaaaaaaaa";
+	next if(-f $cdirmain || $dir !~ /^(defaults|tasks|meta)$/);
 
 	open(MAIN, '>', $cdirmain) or die($cdirmain);
 	print MAIN "---\n\n" if $dir eq 'tasks';
+	print MAIN "---
+
+dependencies:
+  - minimal
+" if $dir eq 'meta';
 	close(MAIN);
 
 }
