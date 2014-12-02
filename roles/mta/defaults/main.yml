@@ -15,7 +15,8 @@ opendkim_selector: 'dbi'
 # Please do not edit this
 # ------------------------
 opendkim_socket: "inet:{{ opendkim_port }}@{{ opendkim_listen }}"
-opendkim_keys_dir: '/etc/opendkim/keys'
+opendkim_dir: '/etc/opendkim'
+opendkim_keys_dir: '{{ opendkim_dir }}/keys'
 opendkim_domain_keys_dir: '{{ opendkim_keys_dir }}/{{ mta_domain }}'
 opendkim_private_key: '{{ opendkim_domain_keys_dir }}/{{ opendkim_selector }}.private'
 opendkim_txt_record: '{{ opendkim_domain_keys_dir }}/{{ opendkim_selector }}.txt'

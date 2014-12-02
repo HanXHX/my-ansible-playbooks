@@ -43,6 +43,9 @@
   template: src=etc/aliases.j2 dest=/etc/aliases
   notify: newaliases
 
+- name: FILE | Create opendkim directory
+  file: path={{ opendkim_dir }} state=directory mode=0755 owner=root group=opendkim
+
 - name: FILE | Create keys directories
   file: path={{ opendkim_domain_keys_dir }} state=directory mode=0755 owner=root group=opendkim
 
@@ -59,6 +62,10 @@
 
 - name: TEMPLATE | Deploy configuration
   template: src=etc/opendkim.conf.j2 dest=/etc/opendkim.conf mode=0644
+  notify: restart opendkim
+
+- name: TEMPLATE | Deploy OpenDKIM Trusted Hosts
+  template: src=etc/opendkim/TrustedHosts.j2 dest=/etc/opendkim/TrustedHosts mode=0644
   notify: restart opendkim
 
 - name: TEMPLATE | Deploy default launcher
