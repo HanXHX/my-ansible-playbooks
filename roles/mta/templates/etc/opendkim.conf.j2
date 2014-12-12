@@ -6,6 +6,9 @@
 Syslog			yes
 UMask			002
 
+ExternalIgnoreList      refile:/etc/opendkim/TrustedHosts
+InternalHosts           refile:/etc/opendkim/TrustedHosts
+
 Domain			{{ mta_domain }}	
 KeyFile			{{ opendkim_private_key }}	
 Selector		{{ opendkim_selector }}	
