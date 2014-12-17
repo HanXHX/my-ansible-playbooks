@@ -6,6 +6,44 @@ About
 This playbook works with: Ansible 1.7.1 and Vagrant 1.6.3
 The goal of this project is to create the "perfect" environement for PHP on Debian GNU/Linux.
 
+Available roles
+---------------
+
+### Systems 
+
+- [Minimal](roles/minimal)
+- [Dotdeb](roles/dotdeb)
+
+
+### HTTP
+
+- [Nginx](roles/nginx)
+
+### PHP
+
+- [PHP](roles/php) (PHP + PHP-FPM)
+- [PHP Xdebug](roles/php-xdebug)
+- [PHP Newrelic](roles/php-newrelic)
+- [Phalcon framework](roles/php-phalcon)
+
+
+### Databases
+
+- [MySQL](roles/mysql)
+- [MariaDB](roles/mariadb)
+- [Redis](roles/redis)
+- [RethinkDB](roles/rethinkdb)
+
+### Backup 
+
+- [BackupPC Server](roles/backuppc)
+- [BackupPC host](roles/backuppc_host) (backupped)
+
+
+### Misc
+
+
+
 TODO List
 ---------
 
@@ -15,7 +53,6 @@ TODO List
 - Create standard users (with sudo)
 - PHP-FPM socket = tcp
 - Better "save" management in redis. Use a loop instead of using save, save2, save3...
-- Use array of hashes for sysctl (minimal role), keys/values are hard coded :/
 
 
 Ideas for future
@@ -51,11 +88,13 @@ Ideas for future
 - PHP:
   - zmq
   - [phpredis](https://github.com/nicolasff/phpredis) (Debian Package only available on Debian Jessie/Sid or Dotdeb) + feature: Session management in Redis
-- Support FreeBSD!
+- Support [FreeBSD](http://www.freebsd.org)!
+- Support [Devuan](https://www.devuan.org)
+- Use Docker instead of Virtualbox
 
 Notes
 -----
 
 - Apache will never be supported. I really hate this program... It was the better... Now Nginx is the better. You want Apache? Fork my fuckin project!
 - All pull-requests are welcomed :)
-
+- I hate systemd!
