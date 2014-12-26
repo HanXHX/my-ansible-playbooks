@@ -13,11 +13,12 @@ Available roles
 
 - [Minimal](roles/minimal)
 - [Dotdeb](roles/dotdeb)
-
+- [Security](roles/security)
 
 ### HTTP
 
 - [Nginx](roles/nginx)
+- [SSL Autosign](roles/ssl_autosign) (created autosign cert/key)
 
 ### PHP
 
@@ -39,8 +40,11 @@ Available roles
 - [BackupPC Server](roles/backuppc)
 - [BackupPC host](roles/backuppc_host) (backupped)
 
-
 ### Misc
+
+- [Jenkins](roles/jenkins)
+- [MTA](roles/mta) (Postfix + OpenDKIM)
+- [Newrelic](roles/newrelic_common)
 
 
 
