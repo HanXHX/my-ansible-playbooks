@@ -1,0 +1,5 @@
+---
+
+dependencies:
+  - minimal
+  - fail2ban
