@@ -24,15 +24,16 @@ GetOptions(
 	'handlers' => sub { $dirs->{handlers} = 1 },
 	'tasks' => sub { $dirs->{tasks} = 1 },
 	'templates' => sub { $dirs->{templates} = 1 },
-	'vars' => sub { $dirs->{vars} = 1 }
+	'vars' => sub { $dirs->{vars} = 1 },
+	'h|help' => sub { my_usage(); }
 );
 
 
 unless(defined $role_name && -d './roles')
 {
-	say STDERR 'fail';
-	exit 1;
+	my_usage();
 }
+
 
 my $base_dir = sprintf('./roles/%s', $role_name);
 mkdir($base_dir) unless -d $base_dir;
@@ -71,7 +72,7 @@ unless(-f $readme_file)
 {
 
 	my $readme = sprintf <<EOF, ucfirst($role_name), '=' x length($role_name); 
-%s ROLE
+%s role
 %s=====
 
 Actions
@@ -94,3 +95,10 @@ EOF
 	say README $readme;
 	close(README);
 }
+
+sub my_usage
+{
+	say STDERR "Usage: $0 -n role_name [ --defaults  ] [ --files ] [ --handlers  ] [ --tasks ] [ --templates ] [ --vars ] [ -h | help ]  ";
+	exit 1;
+}
+
