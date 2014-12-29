@@ -8,6 +8,9 @@
   template: src=hosts.j2 dest=/etc/hosts
   notify: restart rsyslog
 
+- name: COPY | Configure APT: no extra packages 
+  copy: src=etc/apt/apt.conf.d/90noextrapackages dest=/etc/apt/apt.conf.d/90noextrapackages
+
 - name: TEMPLATE | Force Debian version on APT
   template: src=etc/apt/apt.conf.d/71default-release.j2 dest=/etc/apt/apt.conf.d/71default-release 
 
