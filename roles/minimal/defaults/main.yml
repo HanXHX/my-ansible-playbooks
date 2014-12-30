@@ -1,20 +1,20 @@
 # -------------------------
-# APC configuration 
+# APT configuration
 # -------------------------
 debian_backport_host: "ftp.debian.org"
 apt_default_host: "ftp.fr.debian.org"
 
 # -------------------------
-# System configuration 
+# System configuration
 # -------------------------
 system_locales:
   - 'fr_FR.UTF-8'
   - 'en_US.UTF-8'
-system_default_locale: 'fr_FR.UTF-8'
+system_default_locale: 'en_US.UTF-8'
 system_timezone: 'Europe/Paris'
 
 # -------------------------
-# NTPd configuration 
+# NTPd configuration
 # -------------------------
 ntp_host: "fr.pool.ntp.org"
 
