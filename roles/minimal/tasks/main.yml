@@ -68,9 +68,14 @@
     - tcpdump
     - vim
 
+# Note: explicit Debian version (wheezy-backports)
 - name: APT | Install Intel Microcode if needed
-  apt: pkg=intel-microcode state=latest
-  when: ansible_processor[0].find('Intel') != -1
+  apt: pkg=intel-microcode state=latest default_release=wheezy-backports
+  when: ansible_processor[0].find('Intel') != -1 and ansible_architecture == 'x86_64'
+
+- name: APT | Install AMD Microcode if needed
+  apt: pkg=intel-microcode state=latest default_release=wheezy-backports
+  when: ansible_processor[0].find('AMD') != -1 and ansible_architecture == 'x86_64'
 
 - name: TEMPLATE | Deploy OpenNTPd configuration file
   template: src=ntpd.conf.j2 dest=/etc/openntpd/ntpd.conf
