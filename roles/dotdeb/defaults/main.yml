@@ -1,0 +1,2 @@
+# See: https://www.dotdeb.org/mirrors/
+dotdeb_apt_host: 'packages.dotdeb.org'

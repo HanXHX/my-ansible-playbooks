@@ -1,6 +1,0 @@
-  - name: Add dotdeb php54 (Squeeze)
-    apt_repository: repo='deb http://packages.dotdeb.org squeeze-php54 all' state=present
-
-  - name: Add dotdeb php54 src (Squeeze)
-    apt_repository: repo='deb-src http://packages.dotdeb.org squeeze-php54 all' state=present
-
