@@ -1,9 +1,9 @@
 ---
 
   - name: TEMPLATE | Deploy PHP upstream (UNIX sockets) to Nginx
-    template: src=upstream/php_unix.conf.j2 dest=/etc/nginx/conf.d/php.conf
+    template: src=etc/nginx/upstream/php_unix.conf.j2 dest=/etc/nginx/conf.d/php.conf
     notify: restart nginx
 
   - name: TEMPLATE | Deploy PHP Helper
-    template: src=helpers/php.j2 dest=/etc/nginx/helpers/php
+    template: src=etc/nginx/helpers/php.j2 dest=/etc/nginx/helpers/php
     notify: restart nginx

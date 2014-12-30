@@ -7,10 +7,6 @@
   template: src=etc/nginx/nginx.conf.j2 dest=/etc/nginx/nginx.conf
   notify: restart nginx
 
-- name: TEMPLATE | Add specific configuration
-  template: src=etc/nginx/conf.d/general.conf.j2 dest=/etc/nginx/conf.d/general.conf
-  notify: reload nginx
-
 - name: FILE | Create root folders (foreach websites)
   file: path={{ nginx_root }}/{{ item.name }} state=directory recurse=yes owner=www-data group=www-data mode=0755
   file: path={{ nginx_root }}/{{ item.name }}/public state=directory recurse=yes owner=www-data group=www-data mode=0755
