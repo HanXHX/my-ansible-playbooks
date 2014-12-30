@@ -4,6 +4,19 @@ fail2ban_definition:
   logtarget: '/var/log/fail2ban.log'
   socket: '/var/run/fail2ban/fail2ban.sock'
   pidfile: '/var/run/fail2ban/fail2ban.pid'
+fail2ban_default:
+  ignoreip:
+    - '127.0.0.1/8'
+  bantime: '600'
+  findtime: '600'
+  maxretry: '3'
+  backend: 'auto'
+  usedns: 'warn'
+  destemail: 'root@localhost'
+  sendername: 'Fail2ban'
+  banaction: 'iptables-multiport'
+  mta: 'sendmail'
+  protocol: 'tcp'
 fail2ban_jails:
   - section: 'asterisk-udp'
     enabled: 'false'

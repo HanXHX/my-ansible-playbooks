@@ -4,15 +4,15 @@ Fail2ban role
 Actions
 -------
 
-- TODO
+- Install and configure Fail2ban 
 
 Variables
 ---------
 
-- TODO
+Lots!!! See [defaults](defaults/main.yml)
 
 Notes
 -----
 
-- TODO
+- This role merge 2 variables (lists): fail2ban_default.ignore_ip and hosts_whitelist (see group_vars/all). 
 

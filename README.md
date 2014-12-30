@@ -13,7 +13,11 @@ Available roles
 
 - [Minimal](roles/minimal)
 - [Dotdeb](roles/dotdeb)
-- [Security](roles/security)
+
+
+### Security
+- [Security](roles/security) (metarole)
+- [Fail2ban](roles/fail2ban)
 
 ### HTTP
 
@@ -53,7 +57,6 @@ TODO List
 
 - Manage MySQL versions: on debian wheezy repository => 5.5, on dotdeb => 5.6
 - Create MySQL users/databases... Find any tip to create table?
-- Split security role (should by a 'metarole') on many roles: firewall, fail2ban... etc
 - Create standard users (with sudo)
 - PHP-FPM socket = tcp
 - Better "save" management in redis. Use a loop instead of using save, save2, save3...
