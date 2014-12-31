@@ -77,6 +77,12 @@
   apt: pkg=intel-microcode state=latest default_release=wheezy-backports
   when: ansible_processor[0].find('AMD') != -1 and ansible_architecture == 'x86_64'
 
+- name: FILE | Delete shitty Puppet repository
+  file: path=/etc/apt/sources.list.d/puppetlabs.list state=absent
+
+- name: APT | Uninstall shitty Puppet
+  apt: pkg=puppet state=absent update_cache=yes cache_valid_time=3600
+
 - name: TEMPLATE | Deploy OpenNTPd configuration file
   template: src=etc/openntpd/ntpd.conf.j2 dest=/etc/openntpd/ntpd.conf
   notify: restart openntpd
