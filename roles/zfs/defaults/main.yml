@@ -1,0 +1,2 @@
+zfs_url_deb: 'http://archive.zfsonlinux.org/debian/pool/main/z/zfsonlinux/zfsonlinux_4_all.deb'
+zfs_deb: 'zfsonlinux_4_all.deb'

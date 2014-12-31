@@ -13,6 +13,7 @@ Available roles
 
 - [Minimal](roles/minimal)
 - [Dotdeb](roles/dotdeb)
+- [ZFS](roles/zfs)
 
 
 ### Security

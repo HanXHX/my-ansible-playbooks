@@ -1,0 +1,25 @@
+---
+
+- name: FAIL | Check architecture
+  fail: msg='Bad architecture'
+  when: ansible_userspace_architecture != 'x86_64' or ansible_userspace_bits != '64'
+
+- name: APT_KEY | Add APT key 
+  apt_key: id=4D5843EA url=http://zfsonlinux.org/4D5843EA.asc state=present
+
+- name: APT_REPOSITORY | Add ZOL repository
+  apt_repository: repo='deb [arch=amd64] http://archive.zfsonlinux.org/debian {{ ansible_distribution_release }} main' state=present 
+
+- name: COPY | Configure APT preferences
+  copy: src=etc/apt/preferences.d/zfsonlinux dest=/etc/apt/preferences.d/zfsonlinux
+
+- name: APT | Install ZFS and packages from ZFS repository
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - linux-headers-2.6-amd64
+    - debian-zfs
+    - dkms
+    - grub2-common
+    - grub-common
+    - grub-pc
+    - grub-pc-bin
