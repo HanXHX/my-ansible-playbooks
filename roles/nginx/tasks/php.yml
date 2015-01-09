@@ -1,11 +1,15 @@
 ---
 
+- name: INCLUDE_VARS | Include PHP defaults vars from PHP role if unspecified
+  include_vars: ../../php/defaults/main.yml 
+  when: php_fpm_socket is undefined
+
 - name: TEMPLATE | Deploy PHP upstream (UNIX sockets) to Nginx
   template: src=etc/nginx/upstream/php_unix.conf.j2 dest=/etc/nginx/conf.d/php.conf
   when: php_fpm_socket == 'unix'
   notify: reload nginx
 
-- name: TEMPLATE | Deploy PHP upstream (UNIX sockets) to Nginx
+- name: TEMPLATE | Deploy PHP upstream (PHP sockets) to Nginx
   template: src=etc/nginx/upstream/php_tcp.conf.j2 dest=/etc/nginx/conf.d/php.conf
   when: php_fpm_socket == 'tcp'
   notify: reload nginx

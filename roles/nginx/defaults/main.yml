@@ -23,6 +23,12 @@ nginx_resolver:
   timeout: '5s'
 
 #
+# Load upstream
+#
+nginx_upstream:
+  php: true
+
+#
 # Nginx HTTP
 #
 nginx_http:
@@ -69,7 +75,7 @@ nginx_websites:
       template: 'strong' # or legacy
     use_access_log: false
     use_error_log: false
-    use_php: false
+    use_php: true 
     use_pagespeed: false
     redirect:
       server_name:

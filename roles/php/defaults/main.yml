@@ -25,8 +25,9 @@ php_error_reporting: 'E_ALL'
 #
 # PHP-FPM pools
 #
+php_fpm_socket: 'unix'
 php_fpm_unix_sockets:
-  - pool_name: 'yeah'
+  - pool_name: 'default'
     mode: '0660'
     user: 'www-data'
     group: 'www-data'
@@ -38,7 +39,7 @@ php_fpm_unix_sockets:
 
 # not tested yet
 php_fpm_tcp_sockets:
-  - pool_name: 'easytcp'
+  - pool_name: 'default'
     user: 'www-data'
     group: '{{ ansible_default_ipv4.address }}'
     ip: '1.1.1.1'

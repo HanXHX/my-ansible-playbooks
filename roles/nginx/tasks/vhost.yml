@@ -27,7 +27,19 @@
   with_items: nginx_websites
   notify: reload nginx
 
+- name: FILE | Create ssl dir per vhost (if needed) 
+  file: dest=/etc/nginx/ssl/{{ item.name }} owner=root mode=0750 state=directory
+  with_items: nginx_websites
+  when: item.ssl.use  
+
+- name: COPY | Deploy SSL keys if needed
+  copy: src=keys/{{ item.name }}/{{ item.name }}.crt dest=/etc/nginx/ssl/{{ item.name }} mode=660
+  copy: src=keys/{{ item.name }}/{{ item.name }}.key dest=/etc/nginx/ssl/{{ item.name }} mode=660
+  with_items: nginx_websites
+  when: item.ssl.use and not generatekey
+
 # TODO: 
 # - Create directories
 # - deploy defaults files (index.html/index.php) allready in files/
+# - work with role "ssl_autosign"
 

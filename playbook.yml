@@ -7,47 +7,6 @@
       when: ansible_distribution != 'Debian' or ansible_distribution_release != "wheezy"
   roles:
     - minimal
-    - mta 
-#    - { role: dotdeb, when: use_dotdeb }
-#    - { role: mysql, when: use_database == 'mariadb' or use_database == 'mysql' }
-#    - { role: php, php_fpm_socket: 'unix', when: use_php }
-#    - { role: redis, when: use_redis }
-#    - { role: nginx, php_fpm_socket: 'unix', when: use_nginx }
-#    - backuppc
+    - nginx 
+    - php
 
-#- name: Nginx/PHP-FPM ansible playbook
-#  hosts: http_php 
-#  roles:
-#    - minimal
-#    - { role: dotdeb, when: use_dotdeb }
-#    - { role: nginx, php_config: 'local' }
-#    - { role: php, php_fpm_socket: 'unix' }
-#
-#- name: Nginx Dedicated ansible playbook
-#  hosts: http 
-#  roles:
-#    - minimal
-#    - { role: dotdeb, when: use_dotdeb }
-#    - { role: nginx, php_config: 'remote' }
-#
-#- name: Dedicated PHP
-#  hosts: php 
-#  roles:
-#    - minimal
-#    - { role: dotdeb, when: use_dotdeb }
-#    - { role: php, php_fpm_socket: 'tcp' }
-#
-#- name: Redis ansible playbook
-#  hosts: redis 
-#  roles:
-#    - minimal
-#    - { role: dotdeb, when: use_dotdeb }
-#    - redis
-#
-#- name: MySQL ansible playbook
-#  hosts: mysql 
-#  roles:
-#    - minimal
-#    - { role: dotdeb, when: use_dotdeb }
-#    - mysql
-#

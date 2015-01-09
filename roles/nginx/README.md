@@ -52,3 +52,4 @@ This config is used by php role too.
 Notes
 -----
 - Available in default repository, Dotdeb and Backports
+- ngx\_pagespeed (nginx-full) is not available in default repository
