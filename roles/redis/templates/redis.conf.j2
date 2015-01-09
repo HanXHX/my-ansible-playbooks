@@ -18,20 +18,20 @@
 
 # By default Redis does not run as a daemon. Use 'yes' if you need it.
 # Note that Redis will write a pid file in /var/run/redis.pid when daemonized.
-daemonize {{ daemonize }}
+daemonize {{ redis_config.daemonize }}
 
 # When running daemonized, Redis writes a pid file in /var/run/redis.pid by
 # default. You can specify a custom pid file location here.
-pidfile {{ pidfile }}
+pidfile {{ redis_config.pidfile }}
 
 # Accept connections on the specified port, default is 6379.
 # If port 0 is specified Redis will not listen on a TCP socket.
-port {{ port }}
+port {{ redis_config.port }}
 
 # If you want you can bind a single interface, if the bind option is not
 # specified all the interfaces will listen for incoming connections.
 #
-bind {{ bind }}
+bind {{ redis_config.bind }}
 
 # Specify the path for the unix socket that will be used to listen for
 # incoming connections. There is no default, so Redis will not listen
@@ -41,7 +41,7 @@ bind {{ bind }}
 # unixsocketperm 755
 
 # Close the connection after a client is idle for N seconds (0 to disable)
-timeout {{ timeout }}
+timeout {{ redis_config.timeout }}
 
 # TCP keepalive.
 #
@@ -57,7 +57,7 @@ timeout {{ timeout }}
 # On other kernels the period depends on the kernel configuration.
 #
 # A reasonable value for this option is 60 seconds.
-tcp-keepalive {{ tcp_keepalive }}
+tcp-keepalive {{ redis_config.tcp_keepalive }}
 
 # Specify the server verbosity level.
 # This can be one of:
@@ -65,12 +65,12 @@ tcp-keepalive {{ tcp_keepalive }}
 # verbose (many rarely useful info, but not a mess like the debug level)
 # notice (moderately verbose, what you want in production probably)
 # warning (only very important / critical messages are logged)
-loglevel {{ loglevel }}
+loglevel {{ redis_config.loglevel }}
 
 # Specify the log file name. Also 'stdout' can be used to force
 # Redis to log on the standard output. Note that if you use standard
 # output for logging but daemonize, logs will be sent to /dev/null
-logfile {{ logfile }}
+logfile {{ redis_config.logfile }}
 
 # To enable logging to the system logger, just set 'syslog-enabled' to yes,
 # and optionally update the other syslog parameters to suit your needs.
@@ -85,7 +85,7 @@ logfile {{ logfile }}
 # Set the number of databases. The default database is DB 0, you can select
 # a different one on a per-connection basis using SELECT <dbid> where
 # dbid is a number between 0 and 'databases'-1
-databases {{ databases }}
+databases {{ redis_config.databases }}
 
 ################################ SNAPSHOTTING  #################################
 #
@@ -109,9 +109,9 @@ databases {{ databases }}
 #
 #   save ""
 
-save {{ save }}
-save {{ save1 }}
-save {{ save2 }}
+{% for s in redis_config.save %}
+save {{ s }}
+{% endfor %}
 
 # By default Redis will stop accepting writes if RDB snapshots are enabled
 # (at least one save point) and the latest background save failed.
@@ -126,13 +126,13 @@ save {{ save2 }}
 # and persistence, you may want to disable this feature so that Redis will
 # continue to work as usually even if there are problems with disk,
 # permissions, and so forth.
-stop-writes-on-bgsave-error {{ stop_writes_on_bgsave_error }}
+stop-writes-on-bgsave-error {{ redis_config.stop_writes_on_bgsave_error }}
 
 # Compress string objects using LZF when dump .rdb databases?
 # For default that's set to 'yes' as it's almost always a win.
 # If you want to save some CPU in the saving child set it to 'no' but
 # the dataset will likely be bigger if you have compressible values or keys.
-rdbcompression {{ rdbcompression }}
+rdbcompression {{ redis_config.rdbcompression }}
 
 # Since version 5 of RDB a CRC64 checksum is placed at the end of the file.
 # This makes the format more resistant to corruption but there is a performance
@@ -141,10 +141,10 @@ rdbcompression {{ rdbcompression }}
 #
 # RDB files created with checksum disabled have a checksum of zero that will
 # tell the loading code to skip the check.
-rdbchecksum {{ rdbchecksum }}
+rdbchecksum {{ redis_config.rdbchecksum }}
 
 # The filename where to dump the DB
-dbfilename {{ dbfilename }}
+dbfilename {{ redis_config.dbfilename }}
 
 # The working directory.
 #
@@ -154,7 +154,7 @@ dbfilename {{ dbfilename }}
 # The Append Only File will also be created inside this directory.
 # 
 # Note that you must specify a directory here, not a file name.
-dir {{ dir }}
+dir {{ redis_config.dir }}
 
 ################################# REPLICATION #################################
 
@@ -183,7 +183,7 @@ dir {{ dir }}
 #    an error "SYNC with master in progress" to all the kind of commands
 #    but to INFO and SLAVEOF.
 #
-slave-serve-stale-data {{ slave_serve_stale_data }}
+slave-serve-stale-data {{ redis_config.slave_serve_stale_data }}
 
 # You can configure a slave instance to accept writes or not. Writing against
 # a slave instance may be useful to store some ephemeral data (because data
@@ -199,7 +199,7 @@ slave-serve-stale-data {{ slave_serve_stale_data }}
 # such as CONFIG, DEBUG, and so forth. To a limited extend you can improve
 # security of read only slaves using 'rename-command' to shadow all the
 # administrative / dangerous commands.
-slave-read-only {{ slave_read_only }}
+slave-read-only {{ redis_config.slave_read_only }}
 
 # Slaves send PINGs to server in a predefined interval. It's possible to change
 # this interval with the repl_ping_slave_period option. The default value is 10
@@ -229,7 +229,7 @@ slave-read-only {{ slave_read_only }}
 # By default we optimize for low latency, but in very high traffic conditions
 # or when the master and slaves are many hops away, turning this to "yes" may
 # be a good idea.
-repl-disable-tcp-nodelay {{ repl_disable_tcp_nodelay }}
+repl-disable-tcp-nodelay {{ redis_config.repl_disable_tcp_nodelay }}
 
 # The slave priority is an integer number published by Redis in the INFO output.
 # It is used by Redis Sentinel in order to select a slave to promote into a
@@ -244,7 +244,7 @@ repl-disable-tcp-nodelay {{ repl_disable_tcp_nodelay }}
 # Redis Sentinel for promotion.
 #
 # By default the priority is 100.
-slave-priority {{ slave_priority }}
+slave-priority {{ redis_config.slave_priority }}
 
 ################################## SECURITY ###################################
 
@@ -369,7 +369,7 @@ slave-priority {{ slave_priority }}
 #
 # Please check http://redis.io/topics/persistence for more information.
 
-appendonly {{ appendonly }}
+appendonly {{ redis_config.appendonly }}
 
 # The name of the append only file (default: "appendonly.aof")
 # appendfilename appendonly.aof
@@ -398,7 +398,7 @@ appendonly {{ appendonly }}
 # If unsure, use "everysec".
 
 # appendfsync always
-appendfsync {{ appendfsync }}
+appendfsync {{ redis_config.appendfsync }}
 # appendfsync no
 
 # When the AOF fsync policy is set to always or everysec, and a background
@@ -419,7 +419,7 @@ appendfsync {{ appendfsync }}
 # 
 # If you have latency problems turn this to "yes". Otherwise leave it as
 # "no" that is the safest pick from the point of view of durability.
-no-appendfsync-on-rewrite {{ no_appendfsync_on_rewrite }}
+no-appendfsync-on-rewrite {{ redis_config.no_appendfsync_on_rewrite }}
 
 # Automatic rewrite of the append only file.
 # Redis is able to automatically rewrite the log file implicitly calling
@@ -438,8 +438,8 @@ no-appendfsync-on-rewrite {{ no_appendfsync_on_rewrite }}
 # Specify a percentage of zero in order to disable the automatic AOF
 # rewrite feature.
 
-auto-aof-rewrite-percentage {{ auto_aof_rewrite_percentage }}
-auto-aof-rewrite-min-size {{ auto_aof_rewrite_min_size }}
+auto-aof-rewrite-percentage {{ redis_config.auto_aof_rewrite_percentage }}
+auto-aof-rewrite-min-size {{ redis_config.auto_aof_rewrite_min_size }}
 
 ################################ LUA SCRIPTING  ###############################
 
@@ -457,7 +457,7 @@ auto-aof-rewrite-min-size {{ auto_aof_rewrite_min_size }}
 # termination of the script.
 #
 # Set it to 0 or a negative value for unlimited execution without warnings.
-lua-time-limit {{ lua_time_limit }}
+lua-time-limit {{ redis_config.lua_time_limit }}
 
 ################################## SLOW LOG ###################################
 
@@ -477,38 +477,38 @@ lua-time-limit {{ lua_time_limit }}
 # The following time is expressed in microseconds, so 1000000 is equivalent
 # to one second. Note that a negative number disables the slow log, while
 # a value of zero forces the logging of every command.
-slowlog-log-slower-than {{ slowlog_log_slower_than }}
+slowlog-log-slower-than {{ redis_config.slowlog_log_slower_than }}
 
 # There is no limit to this length. Just be aware that it will consume memory.
 # You can reclaim memory used by the slow log with SLOWLOG RESET.
-slowlog-max-len {{ slowlog_max_len }}
+slowlog-max-len {{ redis_config.slowlog_max_len }}
 
 ############################### ADVANCED CONFIG ###############################
 
 # Hashes are encoded using a memory efficient data structure when they have a
 # small number of entries, and the biggest entry does not exceed a given
 # threshold. These thresholds can be configured using the following directives.
-hash-max-ziplist-entries {{ hash_max_ziplist_entries }}
-hash-max-ziplist-value {{ hash_max_ziplist_value }}
+hash-max-ziplist-entries {{ redis_config.hash_max_ziplist_entries }}
+hash-max-ziplist-value {{ redis_config.hash_max_ziplist_value }}
 
 # Similarly to hashes, small lists are also encoded in a special way in order
 # to save a lot of space. The special representation is only used when
 # you are under the following limits:
-list-max-ziplist-entries {{ list_max_ziplist_entries }}
-list-max-ziplist-value {{ list_max_ziplist_value }}
+list-max-ziplist-entries {{ redis_config.list_max_ziplist_entries }}
+list-max-ziplist-value {{ redis_config.list_max_ziplist_value }}
 
 # Sets have a special encoding in just one case: when a set is composed
 # of just strings that happens to be integers in radix 10 in the range
 # of 64 bit signed integers.
 # The following configuration setting sets the limit in the size of the
 # set in order to use this special memory saving encoding.
-set-max-intset-entries {{ set_max_intset_entries }}
+set-max-intset-entries {{ redis_config.set_max_intset_entries }}
 
 # Similarly to hashes and lists, sorted sets are also specially encoded in
 # order to save a lot of space. This encoding is only used when the length and
 # elements of a sorted set are below the following limits:
-zset-max-ziplist-entries {{ zset_max_ziplist_entries }}
-zset-max-ziplist-value {{ zset_max_ziplist_value }}
+zset-max-ziplist-entries {{ redis_config.zset_max_ziplist_entries }}
+zset-max-ziplist-value {{ redis_config.zset_max_ziplist_value }}
 
 # Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in
 # order to help rehashing the main Redis hash table (the one mapping top-level
@@ -528,7 +528,7 @@ zset-max-ziplist-value {{ zset_max_ziplist_value }}
 #
 # use "activerehashing yes" if you don't have such hard requirements but
 # want to free memory asap when possible.
-activerehashing {{ activerehashing }}
+activerehashing {{ redis_config.activerehashing }}
 
 # The client output buffer limits can be used to force disconnection of clients
 # that are not reading data from the server fast enough for some reason (a
@@ -563,9 +563,9 @@ activerehashing {{ activerehashing }}
 # subscribers and slaves receive data in a push fashion.
 #
 # Both the hard or the soft limit can be disabled by setting them to zero.
-client-output-buffer-limit {{ client_output_buffer_limit }}
-client-output-buffer-limit {{ client_output_buffer_limit1 }}
-client-output-buffer-limit {{ client_output_buffer_limit2 }}
+client-output-buffer-limit {{ redis_config.client_output_buffer_limit }}
+client-output-buffer-limit {{ redis_config.client_output_buffer_limit1 }}
+client-output-buffer-limit {{ redis_config.client_output_buffer_limit2 }}
 
 # Redis calls an internal function to perform many background tasks, like
 # closing connections of clients in timeot, purging expired keys that are
@@ -582,13 +582,13 @@ client-output-buffer-limit {{ client_output_buffer_limit2 }}
 # The range is between 1 and 500, however a value over 100 is usually not
 # a good idea. Most users should use the default of 10 and raise this up to
 # 100 only in environments where very low latency is required.
-hz {{ hz }}
+hz {{ redis_config.hz }}
 
 # When a child rewrites the AOF file, if the following option is enabled
 # the file will be fsync-ed every 32 MB of data generated. This is useful
 # in order to commit the file to the disk more incrementally and avoid
 # big latency spikes.
-aof-rewrite-incremental-fsync {{ aof_rewrite_incremental_fsync }}
+aof-rewrite-incremental-fsync {{ redis_config.aof_rewrite_incremental_fsync }}
 
 ################################## INCLUDES ###################################
 
