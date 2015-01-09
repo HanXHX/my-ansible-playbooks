@@ -69,24 +69,23 @@ nginx_websites: []
 #      - 'new.mysite1.com'
 #
 #
-#nginx_websites:
-#  - name: 'mysite1'
-#    vhosts:
-#      - template: 'standard'
-#        listen: '443'
-#        server_name:
-#          - 'mysite1.com'
-#          - 'mysite1.net'
-#        ssl:
-#          generatekey: true 
-#          template: 'strong' # or legacy
-#        use_access_log: false
-#        use_php: true
-#        use_pagespeed: true
-#      - template: 'redirect'
-#        listen: '80'
-#        server_name:
-#          - 'www.mysite1.com'
-#          - 'www.mysite1.net'
-#        redirect_to: 'https://mysite1.com$request_uri'
+nginx_websites:
+  - name: 'mysite1'
+    template: 'standard'
+    listen: '80'
+    server_name:
+      - 'mysite1.com'
+      - 'mysite1.net'
+    ssl:
+      use: false
+      generatekey: true 
+      template: 'strong' # or legacy
+    use_access_log: false
+    use_error_log: false
+    use_php: false
+    use_pagespeed: false
+    redirect:
+      server_name:
+        - 'www.mysite1.com'
+        - 'www.mysite1.net'
 

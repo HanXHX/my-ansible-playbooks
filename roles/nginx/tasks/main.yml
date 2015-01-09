@@ -7,14 +7,14 @@
   template: src=etc/nginx/nginx.conf.j2 dest=/etc/nginx/nginx.conf
   notify: restart nginx
 
-- name: FILE | Create root folders (foreach websites)
+- name: FILE | Create root folders (foreach nginx_websites)
   file: path={{ nginx_root }}/{{ item.name }} state=directory recurse=yes owner=www-data group=www-data mode=0755
   file: path={{ nginx_root }}/{{ item.name }}/public state=directory recurse=yes owner=www-data group=www-data mode=0755
-  with_items: websites
+  with_items: nginx_websites
 
 - name: TEMPLATE | Create vhosts
-  template: src=etc/nginx/sites-available/{{ item.vhost }}.j2 dest=/etc/nginx/sites-available/{{ item.name }}
-  with_items: websites
+  template: src=etc/nginx/sites-available/{{ item.template }}.j2 dest=/etc/nginx/sites-available/{{ item.name }}
+  with_items: nginx_websites
   notify: reload nginx
 
 - name: COMMAND | Get sites available
@@ -27,17 +27,22 @@
   file: path=/etc/nginx/sites-enabled/{{ item }} state=absent
   file: path=/etc/nginx/sites-available/{{ item }} state=absent
   with_items: old_vhosts.stdout_lines
-  when: item not in websites|map(attribute='name') and item != 'default'
+  when: item not in nginx_websites|map(attribute='name') and item != 'default'
 
 - name: FILE | Enable vhosts (symlink to sites-enabled)
-  file: src=etc/nginx/sites-available/{{ item.name }} dest=/etc/nginx/sites-enabled/{{ item.name }} state=link
-  with_items: websites
+  file: src=/etc/nginx/sites-available/{{ item.name }} dest=/etc/nginx/sites-enabled/{{ item.name }} state=link
+  with_items: nginx_websites
   notify: reload nginx
 
 # TODO deploy defaults files (index.html/index.php) allready copied in files/
 
 - name: FILE | Create /etc/nginx/helpers
   file: dest=/etc/nginx/helpers owner=root mode=0755 state=directory
+
+- name: TEMPLATE | Deploy all helpers
+  template: src={{ item }} dest=/etc/nginx/helpers/{{ item | basename | regex_replace('\.j2$','') }}
+  with_fileglob: '../templates/etc/nginx/helpers/*.j2'
+  notify: reload nginx
 
 - name: Use PHP configuration (UNIX)
   include: php_fpm_unix.yml
