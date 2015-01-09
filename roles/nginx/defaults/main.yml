@@ -1,19 +1,7 @@
 nginx_apt_package: nginx-full
 
 #
-# Nginx configuration
-#
-nginx_user: 'www-data'
-nginx_worker_processes: '{{ ansible_processor_vcpus }}'
-nginx_pid: '/run/nginx.pid'
-
-nginx_events:
-  worker_connections: '512'
-  multi_accept: 'on'
-  use: 'epoll'
-
-#
-# Nginx shared variables 
+# Nginx shared variables
 #
 nginx_root: "/var/www"
 nginx_log_dir: '/var/log/nginx'
@@ -27,6 +15,18 @@ nginx_resolver:
 #
 nginx_upstream:
   php: true
+
+#
+# Nginx configuration
+#
+nginx_user: 'www-data'
+nginx_worker_processes: '{{ ansible_processor_vcpus }}'
+nginx_pid: '/run/nginx.pid'
+
+nginx_events:
+  worker_connections: '512'
+  multi_accept: 'on'
+  use: 'epoll'
 
 #
 # Nginx HTTP
@@ -71,11 +71,11 @@ nginx_websites:
       - 'mysite1.net'
     ssl:
       use: false
-      generatekey: true 
+      generatekey: true
       template: 'strong' # or legacy
     use_access_log: false
     use_error_log: false
-    use_php: true 
+    use_php: true
     use_pagespeed: false
     redirect:
       server_name:

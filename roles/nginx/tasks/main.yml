@@ -23,11 +23,11 @@
   debug: var=php_fpm_socket
 
 
-- name: INCLUDE | PHP configuration 
+- name: INCLUDE | PHP configuration
   include: php.yml
   when: nginx_upstream.php
 
-- name: INCLUDE | Vhosts configuration 
+- name: INCLUDE | Vhosts configuration
   include: vhost.yml
 
 # TODO:
