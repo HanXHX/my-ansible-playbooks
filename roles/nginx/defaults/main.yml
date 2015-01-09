@@ -54,21 +54,8 @@ nginx_http:
   gzip_vary: 'on'
   gzip_disable: '"msie6"'
 
-websites: []
 nginx_websites: []
 
-#
-#websites:
-#  - name: 'mysite1.com'
-#    server_name: 'www.mysite1.com'
-#    use_php: true
-#    use_pagespeed: false
-#    vhost: 'standard'
-#    redirect_3O1_from:
-#      - 'mysite1.com'
-#      - 'new.mysite1.com'
-#
-#
 nginx_websites:
   - name: 'mysite1'
     template: 'standard'

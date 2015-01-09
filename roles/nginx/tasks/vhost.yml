@@ -1,0 +1,33 @@
+---
+
+- name: FILE | Create root folders (foreach nginx_websites)
+  file: path={{ nginx_root }}/{{ item.name }} state=directory recurse=yes owner=www-data group=www-data mode=0755
+  file: path={{ nginx_root }}/{{ item.name }}/public state=directory recurse=yes owner=www-data group=www-data mode=0755
+  with_items: nginx_websites
+
+- name: TEMPLATE | Create vhosts
+  template: src=etc/nginx/sites-available/{{ item.template }}.j2 dest=/etc/nginx/sites-available/{{ item.name }}
+  with_items: nginx_websites
+  notify: reload nginx
+
+- name: COMMAND | Get sites available
+  command: ls -1 /etc/nginx/sites-available
+  register: old_vhosts
+  changed_when: false
+  ignore_errors: true
+
+- name: Delete unmanaged vhosts
+  file: path=/etc/nginx/sites-enabled/{{ item }} state=absent
+  file: path=/etc/nginx/sites-available/{{ item }} state=absent
+  with_items: old_vhosts.stdout_lines
+  when: item not in nginx_websites|map(attribute='name') and item != 'default'
+
+- name: FILE | Enable vhosts (symlink to sites-enabled)
+  file: src=/etc/nginx/sites-available/{{ item.name }} dest=/etc/nginx/sites-enabled/{{ item.name }} state=link
+  with_items: nginx_websites
+  notify: reload nginx
+
+# TODO: 
+# - Create directories
+# - deploy defaults files (index.html/index.php) allready in files/
+
