@@ -1,14 +1,84 @@
 nginx_apt_package: nginx-full
-nginx_root: /var/www
-websites: []
-php_fpm_unix_sockets:
-  - pool_name: 'www'
-    mode: '0660'
-    user: 'www-data'
-    group: 'www-data'
-    file: '/var/run/php5-fpm.sock'
-    pm_max_children: 250
-    pm_start_servers: 10
-    pm_min_spare_servers: 10
-    pm_max_spare_servers: 20
+
+#
+# Nginx shared variables
+#
+nginx_root: "/var/www"
+nginx_log_dir: '/var/log/nginx'
+nginx_resolver:
+  hosts: ['208.67.222.222', '208.67.220.220'] # OpenDNS
+  valid: '300s'
+  timeout: '5s'
+
+#
+# Load upstream
+#
+nginx_upstream:
+  php: true
+
+#
+# Nginx configuration
+#
+nginx_user: 'www-data'
+nginx_worker_processes: '{{ ansible_processor_vcpus }}'
+nginx_pid: '/run/nginx.pid'
+
+nginx_events:
+  worker_connections: '512'
+  multi_accept: 'on'
+  use: 'epoll'
+
+#
+# Nginx HTTP
+#
+nginx_http:
+  access_log: 'off'
+  error_log: 'off'
+  client_body_buffer_size: '1M'
+  client_header_buffer_size: '1M'
+  client_max_body_size: '10M'
+  large_client_header_buffers: '8 8k'
+  client_body_timeout: '60'
+  client_header_timeout: '60'
+  keepalive_timeout: '30 30'
+  send_timeout: '120'
+  ignore_invalid_headers: 'on'
+  keepalive_requests: '100'
+  recursive_error_pages: 'on'
+  sendfile: 'on'
+  server_name_in_redirect: 'off'
+  server_tokens: 'off'
+  tcp_nodelay: 'on'
+  tcp_nopush: 'on'
+  reset_timedout_connection: 'on'
+  gzip: 'on'
+  gzip_buffers: '16 8k'
+  gzip_comp_level: '9'
+  gzip_http_version: '1.0'
+  gzip_min_length: '0'
+  gzip_types: 'text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml'
+  gzip_vary: 'on'
+  gzip_disable: '"msie6"'
+
+nginx_websites: []
+
+nginx_websites:
+  - name: 'mysite1'
+    template: 'standard'
+    listen: '80'
+    server_name:
+      - 'mysite1.com'
+      - 'mysite1.net'
+    ssl:
+      use: false
+      generatekey: true
+      template: 'strong' # or legacy
+    use_access_log: false
+    use_error_log: false
+    use_php: true
+    use_pagespeed: false
+    redirect:
+      server_name:
+        - 'www.mysite1.com'
+        - 'www.mysite1.net'
 

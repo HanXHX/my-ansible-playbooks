@@ -9,46 +9,73 @@ Actions
 
 Variables
 ---------
+
+You should see [defaults/main.yml](defaults/main.yml) ;)
+
+### Global
+
 - nginx\_apt\_package : (nginx, nginx-extras, nginx-full, nginx-light, nginx-naxsi)
 - nginx\_root : root folder to create each sites
+- nginx\_dir: logs directory
+- nginx\_resolver: (hash)
+  - hosts: list of DNS server (defaults are [OpenDNS](www.opendns.org))
+  - valid
+  - timeout
 
-### Create each vhosts and sites: 
-	websites:
-	  - name: 'mysite1.com'
-	    server_name: 'www.mysite1.com'
-	    use_php: true
-	    use_pagespeed: false
-	    vhost: 'standard'
-	    redirect_3O1_from:
-	      - 'mysite1.com'
-	      - 'new.mysite1.com'
+### Upstream
 
-### Manage FastCGI -> PHP-FPM
+- nginx\_upstream (hash): each key have a bool 
 
-	php_fpm_unix_sockets:
-	  - pool_name: 'yeah'
-	    mode: '0660'
-	    user: 'www-data'
-	    group: 'www-data'
-	    file: '/var/run/php5-fpm.sock'
-	    pm_max_children: 250
-	    pm_start_servers: 10
-	    pm_min_spare_servers: 10
-	    pm_max_spare_servers: 20
-	
-	php_fpm_tcp_sockets:
-	  - pool_name: 'easytcp'
-	    user: 'www-data'
-	    group: 'www-data' 
-	    ip: '{{ ansible_default_ipv4.address }}'
-	    port: 9000
-	    pm_max_children: 250
-	    pm_start_servers: 10
-	    pm_min_spare_servers: 10
-	    pm_max_spare_servers: 20
+### Nginx configuration
 
-This config is used by php role too.
+TODO
+
+### Nginx events
+
+TODO
+
+### Nginx HTTP
+
+Works as key/value.
+
+### Vhost Management
+
+Create each vhosts and sites: 
+
+    nginx_websites:
+      - name: 'mysite1'
+        template: 'standard'
+        listen: '80'                                                                                                                      
+        server_name:
+          - 'mysite1.com'
+          - 'mysite1.net'
+        ssl:
+          use: false
+          generatekey: true
+          template: 'strong' # or legacy
+        use_access_log: false
+        use_error_log: false
+        use_php: true
+        use_pagespeed: false
+        redirect:
+          server_name:
+            - 'www.mysite1.com'
+            - 'www.mysite1.net'
+
+/bin/bash: q : commande introuvable
+- template: which template should we use for this vhost. See [here](templates/etc/nginx/sites-available/).
+- listen: default port...
+- server\_name: vhost hostnames (array)
+- ssl:
+  - use: should we configure SSL?
+  - generatekey: should we use an autosign cert?
+  - template: according with [https://cipherli.st/](https://cipherli.st/), i can provide "legacy" or "strong" cipher
+- redirect: used to redirect hosts (www to no-www or no-ww to www)... I redirect to the first element in server\_name 
+  - server\_name: array of hosts to redirect to main vhost
+
 
 Notes
 -----
 - Available in default repository, Dotdeb and Backports
+- ngx\_pagespeed (nginx-full) is not available in default repository
+- SSL is not ready yet

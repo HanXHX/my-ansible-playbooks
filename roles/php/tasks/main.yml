@@ -24,14 +24,17 @@
     - php5-readline
     - php5-redis
   when: use_dotdeb is defined and use_dotdeb
+  notify: restart php-fpm
 
 - name: APT | Install php-apcu (PHP 5.5+ only)
   apt: pkg=php5-apcu state=latest
   when: use_dotdeb is defined and use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='ge', strict=True)
+  notify: restart php-fpm
 
 - name: APT | Install php-apc (PHP 5.4 max only)
-  apt: pkg=php5-apcu state=latest
-  when: use_dotdeb is defined and use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='lt', strict=True)
+  apt: pkg=php-apc state=latest
+  when: not (use_dotdeb is defined and use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='ge', strict=True))
+  notify: restart php-fpm
 
 - name: TEMPLATE | Deploy PHP configuration file
   template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini owner=root mode=0644

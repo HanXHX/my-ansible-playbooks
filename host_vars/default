@@ -1,3 +1,2 @@
 hostname: 'myserver.debianiste.org'
-php_fpm_socket: 'unix'
 mta_domain: 'debianiste.org'

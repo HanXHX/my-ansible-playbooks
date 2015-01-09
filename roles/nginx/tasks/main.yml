@@ -7,47 +7,29 @@
   template: src=etc/nginx/nginx.conf.j2 dest=/etc/nginx/nginx.conf
   notify: restart nginx
 
-- name: TEMPLATE | Add specific configuration
-  template: src=etc/nginx/conf.d/general.conf.j2 dest=/etc/nginx/conf.d/general.conf
-  notify: reload nginx
-
-- name: FILE | Create root folders (foreach websites)
-  file: path={{ nginx_root }}/{{ item.name }} state=directory recurse=yes owner=www-data group=www-data mode=0755
-  file: path={{ nginx_root }}/{{ item.name }}/public state=directory recurse=yes owner=www-data group=www-data mode=0755
-  with_items: websites
-
-- name: TEMPLATE | Create vhosts
-  template: src=etc/nginx/sites-available/{{ item.vhost }}.j2 dest=/etc/nginx/sites-available/{{ item.name }}
-  with_items: websites
-  notify: reload nginx
-
-- name: COMMAND | Get sites available
-  command: ls -1 /etc/nginx/sites-available
-  register: old_vhosts
-  changed_when: false
-  ignore_errors: true
-
-- name: Delete unmanaged vhosts
-  file: path=/etc/nginx/sites-enabled/{{ item }} state=absent
-  file: path=/etc/nginx/sites-available/{{ item }} state=absent
-  with_items: old_vhosts.stdout_lines
-  when: item not in websites|map(attribute='name') and item != 'default'
-
-- name: FILE | Enable vhosts (symlink to sites-enabled)
-  file: src=etc/nginx/sites-available/{{ item.name }} dest=/etc/nginx/sites-enabled/{{ item.name }} state=link
-  with_items: websites
-  notify: reload nginx
-
-# TODO deploy defaults files (index.html/index.php) allready copied in files/
-
 - name: FILE | Create /etc/nginx/helpers
   file: dest=/etc/nginx/helpers owner=root mode=0755 state=directory
 
-- name: Use PHP configuration (UNIX)
-  include: php_fpm_unix.yml
-  when: php_fpm_socket is defined and php_fpm_socket == 'unix'
+- name: FILE | Create /etc/nginx/ssl
+  file: dest=/etc/nginx/ssl owner=root mode=0755 state=directory
 
-- name: Use PHP configuration (TCP)
-  include: php_fpm_tcp.yml
-  when: php_fpm_socket is defined and php_fpm_socket == 'tcp'
+- name: TEMPLATE | Deploy all helpers
+  template: src={{ item }} dest=/etc/nginx/helpers/{{ item | basename | regex_replace('\.j2$','') }}
+  with_fileglob: '../templates/etc/nginx/helpers/*.j2'
+  notify: reload nginx
 
+- name: PROUT
+  debug: var=nginx_upstream.php
+  debug: var=php_fpm_socket
+
+
+- name: INCLUDE | PHP configuration
+  include: php.yml
+  when: nginx_upstream.php
+
+- name: INCLUDE | Vhosts configuration
+  include: vhost.yml
+
+# TODO:
+# - Python
+# - Ruby (SHIT!)
