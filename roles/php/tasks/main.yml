@@ -26,23 +26,28 @@
   when: use_dotdeb is defined and use_dotdeb
   notify: restart php-fpm
 
+- name: SHELL | Get PHP version on apt
+  shell: LANG=C apt-cache policy php5 2>&1 | awk '/Candidate:/ { print $2 }'
+  register: php_apt_version
+  changed_when: false
+
 - name: APT | Install php-apcu (PHP 5.5+ only)
   apt: pkg=php5-apcu state=latest
-  when: use_dotdeb is defined and use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='ge', strict=True)
+  when: php_apt_version.stdout|version_compare('5.5', 'ge', False)
   notify: restart php-fpm
 
 - name: APT | Install php-apc (PHP 5.4 max only)
   apt: pkg=php-apc state=latest
-  when: not (use_dotdeb is defined and use_dotdeb and dotdeb_php_version|version_compare('5.5', operator='ge', strict=True))
+  when: php_apt_version.stdout|version_compare('5.5', 'lt', False)
   notify: restart php-fpm
 
 - name: TEMPLATE | Deploy PHP configuration file
   template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini owner=root mode=0644
   notify: restart php-fpm
 
-# Bug! APCu with PHP 5.5+
 - name: TEMPLATE | Deploy module configurations
   template: src=mods-available/{{ item }}.j2 dest=/etc/php5/mods-available/{{ item }} owner=root mode=0644
+  when: php_apt_version.stdout|version_compare('5.5', 'ge', False)
   with_items:
     - apcu.ini 
   notify: restart php-fpm
