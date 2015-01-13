@@ -13,6 +13,6 @@
     when: dotdeb_php_version is defined and dotdeb_php_version == "5.5"
 
   - name: Wheezy PHP 5.6
-    include: wheezy_php55.yml
+    include: wheezy_php56.yml
     when: dotdeb_php_version is defined ans dotdeb_php_version == "5.6"
 
