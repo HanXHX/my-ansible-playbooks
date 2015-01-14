@@ -5,4 +5,5 @@
   with_items: 
     - mytop
     - percona-toolkit
+    - python-mysqldb
   
