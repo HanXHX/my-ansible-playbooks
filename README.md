@@ -35,8 +35,7 @@ Available roles
 
 ### Databases
 
-- [MySQL](roles/mysql)
-- [MariaDB](roles/mariadb)
+- [MySQL / MariaDB](roles/mysql)
 - [Redis](roles/redis)
 - [RethinkDB](roles/rethinkdb)
 

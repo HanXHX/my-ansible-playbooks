@@ -1,0 +1,14 @@
+---
+
+- name: APT | Install MariaDB key
+  apt_key: keyserver="keyserver.ubuntu.com" id="0xcbcb082a1bb943db" state=present
+
+- name: APT | Add MariaDB repository
+  apt_repository: repo='deb {{ mariadb_repository }} {{ ansible_distribution_release }}  main' state=present
+
+- name: APT | Add MariaDB (src) repository
+  apt_repository: repo='deb-src {{ mariadb_repository }} {{ ansible_distribution_release }}  main' state=present
+
+- name: APT | Install MariaDB 
+  apt: update_cache=yes cache_valid_time=3600 pkg=mariadb-server state=latest
+    
