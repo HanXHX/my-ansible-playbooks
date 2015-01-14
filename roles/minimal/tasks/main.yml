@@ -40,6 +40,7 @@
 - name: APT | Install few packages
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
+    - atop
     - bmon
     - cpanminus
     - curl
@@ -52,6 +53,7 @@
     - htop
     - hping3
     - iotop
+    - iptraf-ng
     - lynx
     - make
     - most
@@ -65,6 +67,7 @@
     - rsync
     - screen
     - sudo
+    - sysstat
     - tcpdump
     - vim
 
