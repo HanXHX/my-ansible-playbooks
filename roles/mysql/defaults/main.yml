@@ -1,5 +1,16 @@
-# mariadb or mysql
+# -------------------------------------
+# Setup
+# -------------------------------------
 mysql_server: "mariadb"
+mysql_root_password: 'change_me_NOW'
+
+# -------------------------------------
+# Configuration
+# -------------------------------------
+mysql_cnf: []
+
+
+# mariadb or mysql
 
 # -------------------------------------
 # MariaDB

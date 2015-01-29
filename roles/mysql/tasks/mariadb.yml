@@ -1,5 +1,10 @@
 ---
 
+- name: SHELL | Prepare server installation (silent non interactive)
+  shell: echo -e 'mariadb-server-{{ mariadb_version }}\tmysql-server/root_password\tpassword\t{{ mysql_root_password }}' | debconf-set-selections
+  shell: echo  'mariadb-server-{{ mariadb_version }}\tmysql-server/root_password_again password\t{{ mysql_root_password }}'  | debconf-set-selections
+  #when: mysql_exists.stat.exists
+
 - name: APT | Install MariaDB key
   apt_key: keyserver="keyserver.ubuntu.com" id="0xcbcb082a1bb943db" state=present
 

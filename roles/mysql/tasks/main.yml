@@ -7,19 +7,33 @@
     - percona-toolkit
     - python-mysqldb
   
+- name: STAT | Check if mysql exists 
+  stat: path=/etc/init.d/mysql
+  register: mysql_exists 
+  changed_when: false
+
 - name: INCLUDE | Install MySQL (Oracle)
   include: 'mysql.yml'
-  when: mysql_server eq 'mysql'
+  when: mysql_server == 'mysql'
 
 - name: INCLUDE | Install MariaDB
   include: 'mariadb.yml'
-  when: mysql_server eq 'mariadb'
+  when: mysql_server == 'mariadb'
 
 - name: INCLUDE | Install Percona Server
   include: 'percona.yml'
-  when: mysql_server eq 'percona'
+  when: mysql_server == 'percona'
 
 - name: TEMPLATE | Deploy daemon configuration 
   template: src=etc/mysql/conf.d/98-config.cnf.j2 dest=/etc/mysql/conf.d/98-config.cnf.j2
   notify: restart mysql
 
+- name: Update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_password }} login_user=root login_password={{ mysql_root_password }} 
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+  #when: mysql_exists.stat.exists == false
+  

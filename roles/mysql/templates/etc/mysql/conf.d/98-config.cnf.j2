@@ -2,7 +2,7 @@
 # {{ ansible_managed }}
 # -------------------------------------------
 
-{% for i in php_ini %}
+{% for i in mysql_cnf %}
 [{{ i.group_name }}]
 {% for c in i.conf %}
 {% if c.value is defined %}
@@ -11,6 +11,7 @@
 {{ c.key }}
 {% endif %}
 
+{% endfor %}
 {% endfor %}
 
 ; vim: set ft=ini :

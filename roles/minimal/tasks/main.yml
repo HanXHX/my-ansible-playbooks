@@ -45,6 +45,7 @@
     - cpanminus
     - curl
     - cron-apt
+    - debconf-utils
     - debian-goodies
     - gawk
     - gnupg
