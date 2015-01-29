@@ -7,11 +7,19 @@
     - percona-toolkit
     - python-mysqldb
   
-- name: INCLUDE | Install MySQL or MariaDB
-  include: "{{ mysql_server }}.yml"
+- name: INCLUDE | Install MySQL (Oracle)
+  include: 'mysql.yml'
+  when: mysql_server eq 'mysql'
 
-- name: INCLUDE | Tuning 
-  include: tuning.yml
+- name: INCLUDE | Install MariaDB
+  include: 'mariadb.yml'
+  when: mysql_server eq 'mariadb'
 
-- name: INCLUDE | Manage user/databases
-  include: user_database.yml
+- name: INCLUDE | Install Percona Server
+  include: 'percona.yml'
+  when: mysql_server eq 'percona'
+
+- name: TEMPLATE | Deploy daemon configuration 
+  template: src=etc/mysql/conf.d/98-config.cnf.j2 dest=/etc/mysql/conf.d/98-config.cnf.j2
+  notify: restart mysql
+

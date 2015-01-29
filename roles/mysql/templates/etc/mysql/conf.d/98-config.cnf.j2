@@ -2,7 +2,6 @@
 # {{ ansible_managed }}
 # -------------------------------------------
 
-
 {% for i in php_ini %}
 [{{ i.group_name }}]
 {% for c in i.conf %}
