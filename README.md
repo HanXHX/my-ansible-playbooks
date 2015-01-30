@@ -35,7 +35,7 @@ Available roles
 
 ### Databases
 
-- [MySQL / MariaDB](roles/mysql)
+- [MySQL / MariaDB / Percona Server](roles/mysql)
 - [Redis](roles/redis)
 - [RethinkDB](roles/rethinkdb)
 
@@ -55,7 +55,6 @@ Available roles
 TODO List
 ---------
 
-- Manage MySQL versions: on debian wheezy repository => 5.5, on dotdeb => 5.6
 - Create MySQL users/databases... Find any tip to create table?
 - Create standard users (with sudo)
 - PHP-FPM socket = tcp

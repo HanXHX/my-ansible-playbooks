@@ -29,7 +29,7 @@
   notify: restart mysql
 
 - name: TEMPLATE Create .my.cnf for root
-  template: src=root/my.cnf dest=/root/.my.cnf owner=root group=root mode=0660 backup=yes
+  template: src=root/my.cnf dest=/root/.my.cnf owner=root group=root mode=0600 backup=yes
 
 - name: INCLUDE | Secure install 
   include: 'secure.yml'

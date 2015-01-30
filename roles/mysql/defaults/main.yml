@@ -10,8 +10,6 @@ mysql_root_password: 'change_me_NOW'
 mysql_cnf: []
 
 
-# mariadb or mysql
-
 # -------------------------------------
 # MariaDB
 # -------------------------------------
@@ -22,6 +20,5 @@ mariadb_repository: "http://ftp.igh.cnrs.fr/pub/mariadb/repo/{{ mariadb_version 
 # -------------------------------------
 # Percona
 # -------------------------------------
-# See: http://repo.percona.com/apt/pool/main/p/
-percona_package: 'percona-server-server-5.6'
+percona_version: '5.6'
 percona_repository: 'http://repo.percona.com/apt'

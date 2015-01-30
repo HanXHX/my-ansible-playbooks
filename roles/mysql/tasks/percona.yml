@@ -12,6 +12,14 @@
 - name: APT_RESPOSITORY | Add Percona (src) repository
   apt_repository: repo='deb-src {{ percona_repository }} {{ ansible_distribution_release }} main' state=present
 
-- name: APT | Install Percona 
-  apt: update_cache=yes cache_valid_time=3600 pkg={{ percona_package }} state=latest
+- name: SHELL | Prepare Percona silent installation (root password)
+  shell: echo 'percona-server-{{ mariadb_version }} mysql-server/root_password password {{ mysql_root_password }}' | debconf-set-selections
+  when: not mysql_exists.stat.exists
+
+- name: SHELL | Prepare Percona silent installation (root password again)
+  shell: echo 'percona-server-{{ mariadb_version }} mysql-server/root_password_again password {{ mysql_root_password }}' | debconf-set-selections
+  when: not mysql_exists.stat.exists
+
+- name: APT | Install Percona
+  apt: update_cache=yes cache_valid_time=3600 pkg='percona-server-{{ percona_version }}' state=latest
 
