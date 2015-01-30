@@ -14,15 +14,15 @@
 
 - name: INCLUDE | Install MySQL (Oracle)
   include: 'mysql.yml'
-  when: mysql_server == 'mysql'
+  when: mysql_vendor == 'mysql'
 
 - name: INCLUDE | Install MariaDB
   include: 'mariadb.yml'
-  when: mysql_server == 'mariadb'
+  when: mysql_vendor == 'mariadb'
 
 - name: INCLUDE | Install Percona Server
   include: 'percona.yml'
-  when: mysql_server == 'percona'
+  when: mysql_vendor == 'percona'
 
 - name: TEMPLATE | Deploy daemon configuration
   template: src=etc/mysql/conf.d/98-config.cnf.j2 dest=/etc/mysql/conf.d/98-config.cnf.j2

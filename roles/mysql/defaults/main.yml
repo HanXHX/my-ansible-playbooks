@@ -1,7 +1,7 @@
 # -------------------------------------
 # Setup
 # -------------------------------------
-mysql_server: "mariadb"
+mysql_vendor: "mariadb"
 mysql_root_password: 'change_me_NOW'
 
 # -------------------------------------
