@@ -1,7 +1,7 @@
 ---
 - name: FAIL | Check parameters
   fail: msg='Bad parmeters php_fpm_socket == unix | tcp'
-  when: php_fpm_socket != 'unix' and php_fpm_socket != 'tcp' 
+  when: php_fpm_socket != 'unix' and php_fpm_socket != 'tcp'
 
 - name: APT | Install php packages
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
@@ -13,7 +13,7 @@
     - php5-gd
     - php5-geoip
     - php5-mcrypt
-    - php5-mysqlnd 
+    - php5-mysqlnd
     - php5-intl
     - php5-dev
     - geoip-database-contrib
@@ -49,7 +49,7 @@
   template: src=mods-available/{{ item }}.j2 dest=/etc/php5/mods-available/{{ item }} owner=root mode=0644
   when: php_apt_version.stdout|version_compare('5.5', 'ge', False)
   with_items:
-    - apcu.ini 
+    - apcu.ini
   notify: restart php-fpm
 
 - name: INCLUDE | PHP-FPM socket type

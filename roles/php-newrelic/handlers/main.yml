@@ -7,5 +7,5 @@
   action: service name=nginx state=restarted
   ignore_errors: yes
 
-- name: restart newrelic-daemon 
+- name: restart newrelic-daemon
   action: service name=nginx state=restarted enabled=yes

@@ -4,7 +4,7 @@
   fail: msg="No licence key provided. Check 'newrelic_licence_key' variable."
   when: newrelic_licence_key is not defined or not newrelic_licence_key
 
-- name: APT | Install and install key 
+- name: APT | Install and install key
   apt_key: url='https://download.newrelic.com/548C16BF.gpg' state=present
 
 - name: APT | Add repository

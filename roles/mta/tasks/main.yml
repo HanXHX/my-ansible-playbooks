@@ -39,7 +39,7 @@
   template: src=etc/postfix/master.cf.j2 dest=/etc/postfix/master.cf
   notify: reload postfix
 
-- name: TEMPLATE | Deploy aliases 
+- name: TEMPLATE | Deploy aliases
   template: src=etc/aliases.j2 dest=/etc/aliases
   notify: newaliases
 
@@ -72,7 +72,7 @@
   template: src=etc/default/opendkim.j2 dest=/etc/default/opendkim mode=0644
   notify: restart opendkim
 
-- name: COMMAND | Get TXT (DKIM) 
+- name: COMMAND | Get TXT (DKIM)
   command: cat '{{ opendkim_txt_record }}'
   register: dkim
   changed_when: false

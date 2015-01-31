@@ -17,7 +17,7 @@
 - name: FILE | Create Phalcon root dir
   file: path={{ phalcon_root_dir }} state=directory mode=0755 owner=root
 
-- name: FILE | Create Phalcon source dir 
+- name: FILE | Create Phalcon source dir
   file: path={{ phalcon_root_dir }}/v{{ phalcon_version }} state=directory mode=0755 owner=root
 
 - name: GET_URL | Download source
@@ -27,31 +27,31 @@
   unarchive: copy=no src={{ phalcon_root_dir }}/{{ phalcon_version }}.tar.gz dest={{ phalcon_root_dir }}/v{{ phalcon_version }}
 
 - name: SHELL | phpize phalcon
-  command: phpize 
+  command: phpize
   args:
     chdir: "{{ phalcon_build_dir }}"
   when: phalcon_installed|failed or not phalcon_installed.stdout.find('{{phalcon_version}}')
 
 - name: SHELL | ./configure phalcon
-  command: ./configure --enable-phalcon 
+  command: ./configure --enable-phalcon
   args:
     chdir: "{{ phalcon_build_dir }}"
   when: phalcon_installed|failed or not phalcon_installed.stdout.find('{{ phalcon_version}}')
 
 - name: SHELL | ./configure phalcon
-  command: ./configure --enable-phalcon 
+  command: ./configure --enable-phalcon
   args:
     chdir: "{{ phalcon_build_dir }}"
   when: phalcon_installed|failed or not phalcon_installed.stdout.find('{{ phalcon_version}}')
 
 - name: SHELL | compile phalcon
-  command: make 
+  command: make
   args:
     chdir: "{{ phalcon_build_dir }}"
   when: phalcon_installed|failed or not phalcon_installed.stdout.find('{{ phalcon_version}}')
 
 - name: SHELL | Install phalcon
-  command: checkinstall --install --pkgname php5-phalcon --pkgversion '{{ phalcon_version }}~debianiste.1' -A amd64 --nodoc -y 
+  command: checkinstall --install --pkgname php5-phalcon --pkgversion '{{ phalcon_version }}~debianiste.1' -A amd64 --nodoc -y
   args:
     chdir: "{{ phalcon_build_dir }}"
   when: phalcon_installed|failed or not phalcon_installed.stdout.find('{{ phalcon_version}}')

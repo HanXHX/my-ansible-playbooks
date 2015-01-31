@@ -1,6 +1,6 @@
 ---
 
-- name: APT | Install OpenSSL 
+- name: APT | Install OpenSSL
   apt: pkg=openssl state=latest
 
 - name: FILE | Create ssl directory
@@ -8,7 +8,7 @@
 
 - name: COMMAND | Create SSL key
   command: openssl req -new -nodes -sha256 -x509 -subj "/C=FR/ST=RH/L=Lyon/O=IT/CN={{ ssl_domain }}" -days 730 -out /etc/nginx/ssl/{{ ssl_domain }}.crt -keyout /etc/nginx/ssl/{{ ssl_domain }}.key
-  args: 
+  args:
     creates: '/etc/nginx/ssl/{{ ssl_domain }}.key'
   notify: reload nginx
 

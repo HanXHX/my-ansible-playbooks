@@ -1,9 +1,9 @@
 ---
-- name: reload postfix 
+- name: reload postfix
   command: /usr/sbin/postfix reload
 
-- name: newaliases 
-  command: /usr/bin/newaliases 
+- name: newaliases
+  command: /usr/bin/newaliases
 
 - name: restart opendkim
   service: name=opendkim state=restarted

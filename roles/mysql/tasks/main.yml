@@ -32,7 +32,7 @@
 - name: TEMPLATE Create .my.cnf for root
   template: src=root/my.cnf dest=/root/.my.cnf owner=root group=root mode=0600 backup=yes
 
-- name: INCLUDE | Secure install 
+- name: INCLUDE | Secure install
   include: 'secure.yml'
 
 - name: MYSQL_DB | Create databases

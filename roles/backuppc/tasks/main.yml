@@ -1,6 +1,6 @@
 ---
 
-- name: APT | Install BackupPC and few related tools 
+- name: APT | Install BackupPC and few related tools
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
     - backuppc
@@ -18,7 +18,7 @@
   notify: reload nginx
   when: backuppc_use_ssl == 'yes'
 
-- name: FILE | Enable Vhost 
+- name: FILE | Enable Vhost
   file: src=/etc/nginx/sites-available/{{ backuppc_server_name }} dest=/etc/nginx/sites-enabled/{{ backuppc_server_name }} state=link
   notify: [ reload nginx, restart fcgiwrap ]
 
@@ -34,4 +34,4 @@
   file: path=/var/www/backuppc state=directory mode=0755 owner=backuppc
 
 - name: FILE | Deploy hardlink from SSH Key:p
-  file: src=/var/lib/backuppc/.ssh/id_rsa.pub dest=/var/www/backuppc/id_rsa.pub state=hard 
+  file: src=/var/lib/backuppc/.ssh/id_rsa.pub dest=/var/www/backuppc/id_rsa.pub state=hard

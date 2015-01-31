@@ -8,7 +8,7 @@ redis_config:
   loglevel: 'notice'
   logfile: '/var/log/redis/redis-server.log'
   databases: '16'
-  save: 
+  save:
     - '900 1'
     - '300 10'
     - '60 10000'

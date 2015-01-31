@@ -17,7 +17,7 @@
 - name: Run install script
   shell: 'NR_INSTALL_SILENT=1 newrelic-install install'
   when: not newrelic_so.stat.exists
-  notify: 
+  notify:
     - restart php-fpm
     - restart newrelic-daemon
 
@@ -27,4 +27,4 @@
 
 - name: TEMPLATE | Deploy newrelic daemon config
   template: src=newrelic.cfg.j2 dest=/etc/newrelic/newrelic.cfg
-  notify: restart newrelic-daemon 
+  notify: restart newrelic-daemon

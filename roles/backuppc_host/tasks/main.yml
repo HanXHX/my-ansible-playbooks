@@ -16,7 +16,7 @@
   authorized_key: user=root key='{{ ssh_key_content.stdout }}'
 
 - name: TEMPLATE | Put config to BackupPC server
-  template: src=host_config.pl.j2 dest='/etc/backuppc/{{ hostname }}.pl' owner=backuppc group=www-data mode=0640 
+  template: src=host_config.pl.j2 dest='/etc/backuppc/{{ hostname }}.pl' owner=backuppc group=www-data mode=0640
   delegate_to: '{{ backuppc_server_name }}'
 
 

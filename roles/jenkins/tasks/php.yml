@@ -1,7 +1,7 @@
 ---
 
 - name: APT | Add Debian repository
-  apt_repository: repo='deb http://{{ apt_default_host }}/debian jessie main contrib non-free' state=present  
+  apt_repository: repo='deb http://{{ apt_default_host }}/debian jessie main contrib non-free' state=present
 
 - name: APT | Install PHP related packages
   apt: pkg={{ item }} state=latest

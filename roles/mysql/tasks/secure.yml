@@ -8,7 +8,7 @@
     - ::1
     - localhost
 
-- name: MYSQL_USER | Remove all anonymous users 
+- name: MYSQL_USER | Remove all anonymous users
   mysql_user: name='' host={{ item }} state=absent
   with_items:
     - "{{ ansible_hostname }}"

@@ -2,12 +2,12 @@
   - name: APT | Install DotDeb key
     apt_key: url='http://www.dotdeb.org/dotdeb.gpg' state=present
 
-  - name: APT | Add Dotdeb repository 
+  - name: APT | Add Dotdeb repository
     apt_repository: repo='deb http://{{ dotdeb_apt_host }} {{ ansible_distribution_release }}  all' state=present
 
-  - name: APT | Add Dotdeb repository (src) 
+  - name: APT | Add Dotdeb repository (src)
     apt_repository: repo='deb-src http://{{ dotdeb_apt_host }} {{ ansible_distribution_release }} all' state=present
-    
+
   - name: Wheezy PHP 5.5
     include: wheezy_php55.yml
     when: dotdeb_php_version is defined and dotdeb_php_version == "5.5"

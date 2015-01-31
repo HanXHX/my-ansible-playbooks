@@ -6,7 +6,7 @@
 
   - name: FILE | Delete unmanaged pools
     file: path=/etc/php5/fpm/pool.d/{{ item }}.conf state=absent
-    with_items: pools.stdout_lines 
+    with_items: pools.stdout_lines
     when: item not in php_fpm_unix_sockets|map(attribute='pool_name')
     notify: restart php-fpm
 
