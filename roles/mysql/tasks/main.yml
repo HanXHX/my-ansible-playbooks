@@ -5,6 +5,7 @@
   with_items:
     - mytop
     - percona-toolkit
+    - python-configparser
     - python-mysqldb
 
 - name: STAT | Check if mysql exists
@@ -33,4 +34,12 @@
 
 - name: INCLUDE | Secure install 
   include: 'secure.yml'
+
+- name: MYSQL_DB | Create databases
+  mysql_db: name={{ item }} state=present
+  with_items: mysql_databases
+
+- name: MYSQL_USER | Manages users...
+  mysql_user: name={{ item.name }} password={{ item.password }} priv={{ item.priv }} state=present
+  with_items: mysql_users
 

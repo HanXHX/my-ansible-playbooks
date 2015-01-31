@@ -1,4 +1,4 @@
-Mysql role
+MySQL role
 ==========
 
 Actions
@@ -8,13 +8,36 @@ Actions
 - Install [MariaDB](https://mariadb.org) or [MySQL](http://www.mysql.com) or [Percona Server](http://www.percona.com/software/percona-server)
 - Configuration
 - Secure your service
+- Create databases
+- Create users
 
 Variables
 ---------
 
 - mysql\_vendor: 'mariadb' or 'mysql' or 'percona' (mariadb is default)
 - mysql\_root\_password: default password used when installing database service
+
+### Configuration
+
 - mysql\_cnf: key/value hash see [defaults/main.yml](default vars file)
+
+### Databases
+
+- mysql\_databases: list
+
+### Users
+
+Example:
+
+```
+mysql\_users:
+  - name: 'kiki'
+    password: '123'
+    priv: hihi.*:ALL
+```
+
+Check "priv" syntax in [http://docs.ansible.com/mysql_user_module.html](mysql_user module documentation)
+
 
 ### MariaDB
 
@@ -29,12 +52,13 @@ Variables
 Notes
 -----
 
-- NEVER (yes NEVER), change your mysql\_vendor! This role don't manage migrations/upgrades/downgrades.
+- NEVER (yes NEVER), change your mysql\_vendor or versions! This role don't manage migrations/upgrades/downgrades.
 - Be careful! If you use 'mysql' you can have 2 versions: 5.5 (from Debian repository) and 5.6 from [Dotdeb](https://www.dotdeb.org)
-
 
 TODO
 ----
 
 - Test "official" releases of MySQL [http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/](http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
 - Manage Galera and other tools
+- Manage replication
+- You can secure your password with [http://docs.ansible.com/playbooks_vault.html](Ansible Vault)
