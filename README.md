@@ -64,7 +64,6 @@ TODO List
 Ideas for future
 ----------------
 
-- Dedicated host per service with config generated (example for MySQL: innodb\_buffer\_pool = 75% available RAM)
 - Configure firewall per service used (tcp/3306 if mysql is installed)
 - Try [IRC module](http://docs.ansible.com/irc_module.html) (for fun only)
 - Try Vagrant with many hosts (example: DB1 Master, DB2 Slave, Nginx proxy-cache, Nginx+PHP/FPM)

@@ -25,7 +25,7 @@
   when: mysql_vendor == 'percona'
 
 - name: TEMPLATE | Deploy daemon configuration
-  template: src=etc/mysql/conf.d/98-config.cnf.j2 dest=/etc/mysql/conf.d/98-config.cnf.j2
+  template: src=etc/mysql/conf.d/98-config.cnf.j2 dest=/etc/mysql/conf.d/98-config.cnf
   notify: restart mysql
 
 - name: TEMPLATE Create .my.cnf for root

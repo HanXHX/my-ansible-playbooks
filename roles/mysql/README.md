@@ -12,9 +12,9 @@ Actions
 Variables
 ---------
 
-- mysql\_server: 'mariadb' or 'mysql' or 'percona' (mariadb is default)
+- mysql\_vendor: 'mariadb' or 'mysql' or 'percona' (mariadb is default)
 - mysql\_root\_password: default password used when installing database service
-- mysql_cnf: key/value hash see [defaults/main.yml](default vars file)
+- mysql\_cnf: key/value hash see [defaults/main.yml](default vars file)
 
 ### MariaDB
 
@@ -29,7 +29,7 @@ Variables
 Notes
 -----
 
-- NEVER (yes NEVER), change your mysql\_server! This role don't manage migrations/upgrades/downgrades.
+- NEVER (yes NEVER), change your mysql\_vendor! This role don't manage migrations/upgrades/downgrades.
 - Be careful! If you use 'mysql' you can have 2 versions: 5.5 (from Debian repository) and 5.6 from [Dotdeb](https://www.dotdeb.org)
 
 

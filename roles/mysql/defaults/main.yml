@@ -7,7 +7,13 @@ mysql_root_password: 'change_me_NOW'
 # -------------------------------------
 # Configuration
 # -------------------------------------
-mysql_cnf: []
+mysql_cnf:
+  - group_name: mysqld
+    conf:
+      - key: 'innodb_file_per_table'
+        value: 1
+      - key: 'innodb_buffer_pool_size' # 60% available RAM :)
+        value: '{{ (ansible_memtotal_mb * 0.6) | round | int }}M'
 
 
 # -------------------------------------
