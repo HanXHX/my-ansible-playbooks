@@ -1,7 +1,0 @@
----
-
-- name: APT | Installed required packages
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - python-configparser
-    - python-mysqldb
