@@ -2,6 +2,7 @@ root_email: false
 mta_domain: false 
 mta_bounce_user: 'bounce'
 postfix_url_bounce: 'http://www.monsite.com?email=_email_&type=_type_&reason=_reason_'
+inet_interfaces: all
 
 postfix_mynetworks: []
 postfix_bounce_user: 'bounce'
