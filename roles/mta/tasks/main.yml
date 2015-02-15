@@ -21,6 +21,7 @@
     - opendkim-tools
     - postfix
     - swaks
+    - cpanminus
 
 - name: CPANM | Install few libs
   cpanm: name={{ item }} notest=True
@@ -31,12 +32,51 @@
 - name: FILE | Create script dir
   file: path=/etc/postfix/scripts state=directory mode=0755
 
-- name: TEMPLATE | Deploy main.cf
-  template: src=etc/postfix/main.cf.j2 dest=/etc/postfix/main.cf
+#- name: TEMPLATE | Deploy main.cf
+#  template: src=etc/postfix/{{ item }}.cf.j2 dest=/etc/postfix/{{ item }}.cf
+#  with_items:
+#  - main
+#  - master
+#  notify: reload postfix
+
+- name: POSTFIX | configure main.cf
+  lineinfile: dest=/etc/postfix/main.cf regexp="{{ item.regexp }}" line="{{ item.line }}" backup=yes
+  with_items:
+  - { regexp: "^myorigin", line: "myorigin = /etc/mailname" }
+  #- { regexp: "^masquerade_domains", line: "masquerade_domains = {{ tld }}" }
+  - { regexp: "^mydestination", line: "mydestination = localhost, {{ mta_domain }}, {{ ansible_hostname }}.{{ ansible_domain }}" }
+  - { regexp: "^inet_interfaces", line: "inet_interfaces = {{ inet_interfaces }}" }
+  - { regexp: "^virtual_maps =", line: "virtual_maps = hash:/etc/aliases" }
+  - { regexp: "^append_dot_mydomain =", line: "append_dot_mydomain = no" }
+  - { regexp: "^myhostname =", line: "myhostname = {{ ansible_hostname }}.{{ ansible_domain }}" }
+  - { regexp: "^alias_maps =", line: "alias_maps = hash:/etc/aliases" }
+  - { regexp: "^alias_database =", line: "alias_database = hash:/etc/aliases" }
+  - { regexp: "^mydestination =", line: "mydestination = localhost, {{ mta_domain }}, {{ ansible_hostname }}.{{ ansible_domain }}" }
+  - { regexp: "^mynetworks =", line: "mynetworks = 127.0.0.0/8{% if postfix_mynetworks %}, {{ postfix_mynetworks|join(', ') }}{% endif %}" }
+    # DKIM
+  - { regexp: "^milter_default_action =", line: "milter_default_action = accept" }
+  - { regexp: "^milter_protocol =", line: "milter_protocol = 6" }
+  - { regexp: "^smtpd_milters =", line: "smtpd_milters = {{ postfix_smtpd_milters }}" }
+  - { regexp: "^non_smtpd_milters =", line: "non_smtpd_milters = {{ postfix_smtpd_milters }}" }
+    # Autre tuning, voir http://postfix.traduc.org/index.php/TUNING_README.html" }
+  - { regexp: "^smtpd_error_sleep_time =", line: "smtpd_error_sleep_time = 0" }
+  - { regexp: "^smtp_connect_timeout =", line: "smtp_connect_timeout = 10s" } # default 30s
+  - { regexp: "^smtp_helo_timeout =", line: "smtp_helo_timeout = 10s" } # default 30s
+  - { regexp: "^queue_run_delay =", line: "queue_run_delay = 300s" } # default 1000s
+  - { regexp: "^minimal_backoff_time =", line: "minimal_backoff_time = 300s" } # default 1000s
+  - { regexp: "^maximal_backoff_time =", line: "maximal_backoff_time = 3000s" } # default 4000s
+  - { regexp: "^maximal_queue_lifetime =", line: "maximal_queue_lifetime = 3d" } # default 5d
+  - { regexp: "^bounce_queue_lifetime =", line: "bounce_queue_lifetime = 3d" } # default 5d
+  - { regexp: "^qmgr_message_recipient_limit =", line: "qmgr_message_recipient_limit = 64000" } # default 20000
+  - { regexp: "^smtp_destination_concurrency_limit =", line: "smtp_destination_concurrency_limit = 2" }
+  - { regexp: "^notify_classes =", line: "notify_classes = resource, software, bounce" }
+  - { regexp: "^bounce_notice_recipient =", line: "bounce_notice_recipient = bounce" }
+  - { regexp: "^error_notice_recipient =", line: "error_notice_recipient = bounce" }
+  - { regexp: "^disable_vrfy_command =", line: "disable_vrfy_command = yes" }
   notify: reload postfix
 
-- name: TEMPLATE | Deploy master.cf
-  template: src=etc/postfix/master.cf.j2 dest=/etc/postfix/master.cf
+- name: POSTFIX | configure master.cf
+  lineinfile: dest=/etc/postfix/master.cf line="    -o fallback_relay=" insertafter="^relay" backup=yes
   notify: reload postfix
 
 - name: TEMPLATE | Deploy aliases 
