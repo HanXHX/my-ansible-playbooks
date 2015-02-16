@@ -78,7 +78,7 @@
   when: ansible_processor[0].find('Intel') != -1 and ansible_architecture == 'x86_64'
 
 - name: APT | Install AMD Microcode if needed
-  apt: pkg=intel-microcode state=latest default_release=wheezy-backports
+  apt: pkg=amd64-microcode  state=latest default_release=wheezy-backports
   when: ansible_processor[0].find('AMD') != -1 and ansible_architecture == 'x86_64'
 
 - name: FILE | Delete shitty Puppet repository
