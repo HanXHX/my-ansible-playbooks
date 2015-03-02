@@ -39,39 +39,7 @@
 
 - name: APT | Install few packages
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
-  with_items:
-    - atop
-    - bmon
-    - cpanminus
-    - curl
-    - cron-apt
-    - debconf-utils
-    - debian-goodies
-    - gawk
-    - gnupg
-    - git
-   #- glances #NOTE: only Debian Jessie+
-    - htop
-    - hping3
-    - iotop
-    - iptraf-ng
-    - lynx
-    - make
-    - most
-    - mutt
-    - netcat
-    - nmap
-    - nmon
-    - openntpd
-    - python-pip
-    - pwgen
-    - rsyslog
-    - rsync
-    - screen
-    - sudo
-    - sysstat
-    - tcpdump
-    - vim
+  with_items: minimal_packages
 
 # Note: explicit Debian version (wheezy-backports)
 - name: APT | Install Intel Microcode if needed

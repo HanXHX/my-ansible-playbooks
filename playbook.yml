@@ -1,4 +1,5 @@
 ---
+
 - name: Custom ansible playbook
   hosts: all
   pre_tasks:
@@ -7,4 +8,3 @@
       when: ansible_distribution != 'Debian' or ansible_distribution_release != "wheezy"
   roles:
     - minimal
-    - mysql
