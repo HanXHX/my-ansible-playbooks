@@ -36,6 +36,7 @@ Available roles
 ### Databases
 
 - [MySQL / MariaDB / Percona Server](roles/mysql)
+- [MongoDB](roles/mongodb)
 - [Redis](roles/redis)
 - [RethinkDB](roles/rethinkdb)
 

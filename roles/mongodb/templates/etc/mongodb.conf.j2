@@ -1,0 +1,7 @@
+#
+# {{ ansible_managed }}
+#
+
+{% for key, value in mongodb_conf.iteritems() %}
+{{ key }}={{ value }}
+{% endfor %}

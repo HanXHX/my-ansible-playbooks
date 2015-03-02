@@ -63,6 +63,7 @@
     - nmap
     - nmon
     - openntpd
+    - python-pip
     - pwgen
     - rsyslog
     - rsync
