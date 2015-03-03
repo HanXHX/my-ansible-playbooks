@@ -9,7 +9,7 @@ my $dirs = {
 	'defaults' => 0,
 	'files' => 0,
 	'handlers' => 0,
-	'meta' => 1,
+	'meta' => 0,
 	'tasks' => 1,
 	'templates' => 0,
 	'vars' => 0
@@ -55,14 +55,8 @@ while(my ($dir, $action) = each %{$dirs})
 	next if(-f $cdirmain || $dir !~ /^(defaults|tasks|meta|vars|handlers)$/);
 
 	open(MAIN, '>', $cdirmain) or die($cdirmain);
-	print MAIN "---\n\n" if $dir =~ '/(tasks|handlers)';
-	print MAIN "---
-
-dependencies:
-  - minimal
-" if $dir eq 'meta';
+	print MAIN "---\n\n" if $dir =~ '/(tasks|handlers|meta)';
 	close(MAIN);
-
 }
 
 
