@@ -21,6 +21,26 @@
 - name: WAIT_FOR | Wait MongoDB up
   wait_for: port={{ mongodb_conf.port | default(27017) }} timeout=20
 
+- name: MONGODB_USER | Manage administrative user
+  mongodb_user: database='admin' name='{{ mongodb_ansible_username }}' password='{{ mongodb_ansible_password }}' roles='root' state='present'
+  register: mongo_admin
+  ignore_errors: yes
+
+- name: SERVICE | Restart MongoDB
+  service: name={{ mongodb_init_name }} state=restarted
+  when: mongo_admin.changed
+
+- name: WAIT_FOR | Wait MongoDB up
+  wait_for: port={{ mongodb_conf.port | default(27017) }} timeout=20
+  when: mongo_admin.changed
+
 - name: MONGODB_USER | Manage users and rights
-  mongodb_user: database='{{ item.database }}' name='{{ item.name }}' password='{{ item.password }}' roles='{{ item.role }}' state='present'
+  mongodb_user:
+    database='{{ item.database }}'
+    name='{{ item.name }}'
+    password='{{ item.password }}'
+    roles='{{ item.role }}'
+    login_user='{{ mongodb_ansible_username }}'
+    login_password='{{ mongodb_ansible_password}}'
+    state='present'
   with_items: mongodb_users

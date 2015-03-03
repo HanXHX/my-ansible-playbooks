@@ -19,3 +19,4 @@ mongodb_users:
     password: 'ter'
     role: 'readWriteAnyDatabase'
 
+mongodb_ansible_password: 'change_me_NOW'

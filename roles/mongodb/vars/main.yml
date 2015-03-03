@@ -1,1 +1,2 @@
 mongodb_default_port: 27017
+mongodb_ansible_username: 'ansibler'
