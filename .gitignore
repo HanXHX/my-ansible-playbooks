@@ -1,5 +1,6 @@
 .vagrant*
 *.swp
 debianiste.yml
+playbook.yml
 host_vars/*.debianiste.org
 group_vars/*debianiste*

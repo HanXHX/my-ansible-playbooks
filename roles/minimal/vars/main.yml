@@ -1,0 +1,35 @@
+minimal_packages:
+  - atop
+  - bmon
+  - cpanminus
+  - curl
+  - cron-apt
+  - debconf-utils
+  - debian-goodies
+  - gawk
+  - gnupg
+  - git
+  - htop
+  - hping3
+  - iotop
+  - iptraf-ng
+  - lynx
+  - make
+  - most
+  - mutt
+  - netcat
+  - nmap
+  - nmon
+  - openntpd
+  - python-pip
+  - pwgen
+  - rsyslog
+  - rsync
+  - screen
+  - sudo
+  - sysstat
+  - tcpdump
+  - vim
+ #- glances #NOTE: only Debian Jessie+
+
+

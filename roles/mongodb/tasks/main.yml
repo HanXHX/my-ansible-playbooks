@@ -1,0 +1,46 @@
+---
+
+- name: PIP | Install pymongo (DIRTY)
+  pip: name=pymongo state=present
+
+- name : Include | Install MongoDB from Debian repository
+  include: debian.yml
+  when: mongodb_source == 'debian'
+
+- name: INCLUDE | Install MongoDB from official repository
+  include: official.yml
+  when: mongodb_source == 'official'
+
+- name: TEMPLATE | Deploy configuration
+  template: src=etc/mongodb.conf.j2 dest='/etc/{{ mongodb_init_name }}.conf'
+  notify: restart mongodb
+
+- name: SERVICE | Ensure MongoDB is started
+  service: name={{ mongodb_init_name }} state=started
+
+- name: WAIT_FOR | Wait MongoDB up
+  wait_for: port={{ mongodb_conf.port | default(27017) }} timeout=20
+
+- name: MONGODB_USER | Manage administrative user
+  mongodb_user: database='admin' name='{{ mongodb_ansible_username }}' password='{{ mongodb_ansible_password }}' roles='root' state='present'
+  register: mongo_admin
+  ignore_errors: yes
+
+- name: SERVICE | Restart MongoDB
+  service: name={{ mongodb_init_name }} state=restarted
+  when: mongo_admin.changed
+
+- name: WAIT_FOR | Wait MongoDB up
+  wait_for: port={{ mongodb_conf.port | default(27017) }} timeout=20
+  when: mongo_admin.changed
+
+- name: MONGODB_USER | Manage users and rights
+  mongodb_user:
+    database='{{ item.database }}'
+    name='{{ item.name }}'
+    password='{{ item.password }}'
+    roles='{{ item.role }}'
+    login_user='{{ mongodb_ansible_username }}'
+    login_password='{{ mongodb_ansible_password}}'
+    state='present'
+  with_items: mongodb_users

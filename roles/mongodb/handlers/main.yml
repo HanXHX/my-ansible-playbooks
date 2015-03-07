@@ -1,0 +1,4 @@
+---
+
+- name: restart mongodb
+  action: service name={{ mongodb_init_name  }} state=restarted enabled=yes

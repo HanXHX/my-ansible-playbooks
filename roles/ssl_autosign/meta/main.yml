@@ -1,5 +1,4 @@
 ---
 
 dependencies:
-  - minimal
   - nginx

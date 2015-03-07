@@ -1,0 +1,8 @@
+---
+
+- name: SET_FACT | Set init.d script name
+  set_fact: mongodb_init_name='mongodb'
+
+# TODO: manage backports
+- name: APT | Install MongoDB from Debian repository
+  apt: pkg=mongodb state=latest update_cache=yes cache_valid_time=3600

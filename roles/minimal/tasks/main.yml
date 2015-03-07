@@ -39,38 +39,7 @@
 
 - name: APT | Install few packages
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
-  with_items:
-    - atop
-    - bmon
-    - cpanminus
-    - curl
-    - cron-apt
-    - debconf-utils
-    - debian-goodies
-    - gawk
-    - gnupg
-    - git
-   #- glances #NOTE: only Debian Jessie+
-    - htop
-    - hping3
-    - iotop
-    - iptraf-ng
-    - lynx
-    - make
-    - most
-    - mutt
-    - netcat
-    - nmap
-    - nmon
-    - openntpd
-    - pwgen
-    - rsyslog
-    - rsync
-    - screen
-    - sudo
-    - sysstat
-    - tcpdump
-    - vim
+  with_items: minimal_packages
 
 # Note: explicit Debian version (wheezy-backports)
 - name: APT | Install Intel Microcode if needed
@@ -78,7 +47,7 @@
   when: ansible_processor[0].find('Intel') != -1 and ansible_architecture == 'x86_64'
 
 - name: APT | Install AMD Microcode if needed
-  apt: pkg=intel-microcode state=latest default_release=wheezy-backports
+  apt: pkg=amd64-microcode  state=latest default_release=wheezy-backports
   when: ansible_processor[0].find('AMD') != -1 and ansible_architecture == 'x86_64'
 
 - name: FILE | Delete shitty Puppet repository
