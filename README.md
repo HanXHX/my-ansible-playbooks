@@ -56,6 +56,7 @@ Available roles
 TODO List
 ---------
 
+- Better dotfiles :p
 - Create MySQL users/databases... Find any tip to create table?
 - Create standard users (with sudo)
 - PHP-FPM socket = tcp
