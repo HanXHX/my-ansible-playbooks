@@ -5,10 +5,11 @@ nginx_apt_package: nginx-full
 #
 nginx_root: "/var/www"
 nginx_log_dir: '/var/log/nginx'
+nginx_ssl_dir: '/etc/nginx/ssl'
 nginx_resolver:
   hosts: ['208.67.222.222', '208.67.220.220'] # OpenDNS
-  valid: '300s'
-  timeout: '5s'
+  valid: '300'
+  timeout: '5'
 
 #
 # Load upstream
@@ -59,6 +60,7 @@ nginx_http:
   gzip_types: 'text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml'
   gzip_vary: 'on'
   gzip_disable: '"msie6"'
+  etag: 'off'
 
 nginx_websites: []
 

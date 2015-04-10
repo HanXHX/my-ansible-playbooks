@@ -2,5 +2,9 @@
 # {{ ansible_managed }}
 #
 
+location ~* \.(txt|js|css|png|jpg|jpeg|gif|ico|svg)$ {
+	expires 30d;
+	log_not_found off;
+}
 
 # vim:filetype=nginx

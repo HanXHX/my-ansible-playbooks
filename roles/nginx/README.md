@@ -16,7 +16,8 @@ You should see [defaults/main.yml](defaults/main.yml) ;)
 
 - nginx\_apt\_package : (nginx, nginx-extras, nginx-full, nginx-light, nginx-naxsi)
 - nginx\_root : root folder to create each sites
-- nginx\_dir: logs directory
+- nginx\_log\_dir: logs directory
+- nginx\_ssl\_dir: key/cert root directory
 - nginx\_resolver: (hash)
   - hosts: list of DNS server (defaults are [OpenDNS](www.opendns.org))
   - valid
@@ -55,14 +56,12 @@ Create each vhosts and sites:
           template: 'strong' # or legacy
         use_access_log: false
         use_error_log: false
-        use_php: true
         use_pagespeed: false
-        redirect:
-          server_name:
-            - 'www.mysite1.com'
-            - 'www.mysite1.net'
+        redirect_server_name:
+          - 'www.mysite1.com'
+          - 'www.mysite1.net'
 
-/bin/bash: q : commande introuvable
+- name: Vhost name, used as filename (must be unique)
 - template: which template should we use for this vhost. See [here](templates/etc/nginx/sites-available/).
 - listen: default port...
 - server\_name: vhost hostnames (array)
@@ -70,12 +69,11 @@ Create each vhosts and sites:
   - use: should we configure SSL?
   - generatekey: should we use an autosign cert?
   - template: according with [https://cipherli.st/](https://cipherli.st/), i can provide "legacy" or "strong" cipher
-- redirect: used to redirect hosts (www to no-www or no-ww to www)... I redirect to the first element in server\_name 
-  - server\_name: array of hosts to redirect to main vhost
-
+- redirect\_server\_name: used to redirect hosts (www to no-www or no-www to www)... I redirect to the first element in server\_name 
 
 Notes
 -----
+
 - Available in default repository, Dotdeb and Backports
 - ngx\_pagespeed (nginx-full) is not available in default repository
-- SSL is not ready yet
+- nginx ssl vhost folder MUST have the same name as "name" in nginx\_websites

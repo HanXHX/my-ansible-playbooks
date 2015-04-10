@@ -61,6 +61,7 @@ TODO List
 - Create standard users (with sudo)
 - PHP-FPM socket = tcp
 - Better "save" management in redis. Use a loop instead of using save, save2, save3...
+- Nginx logrotate management
 
 
 Ideas for future

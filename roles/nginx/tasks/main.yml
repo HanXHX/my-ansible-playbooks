@@ -18,11 +18,6 @@
   with_fileglob: '../templates/etc/nginx/helpers/*.j2'
   notify: reload nginx
 
-- name: PROUT
-  debug: var=nginx_upstream.php
-  debug: var=php_fpm_socket
-
-
 - name: INCLUDE | PHP configuration
   include: php.yml
   when: nginx_upstream.php

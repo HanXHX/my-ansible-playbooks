@@ -5,14 +5,12 @@
 server {
 {% include 'COMMON.j2' %}
 
-	index index.htm index.html index.php;
+	index index.htm index.html;
 
 	location / {
-		try_files $uri $uri/ /index.php?q=$uri&$args;
+		try_files $uri $uri/;
 	}
 	include /etc/nginx/helpers/static-expires;
-	include /etc/nginx/helpers/no-ht;
-	include /etc/nginx/helpers/php;
 }
 
 {% include 'REDIRECT.j2' %}

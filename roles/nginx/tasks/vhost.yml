@@ -32,11 +32,12 @@
   with_items: nginx_websites
   when: item.ssl.use
 
-- name: COPY | Deploy SSL keys if needed
-  copy: src=keys/{{ item.name }}/{{ item.name }}.crt dest=/etc/nginx/ssl/{{ item.name }} mode=660
-  copy: src=keys/{{ item.name }}/{{ item.name }}.key dest=/etc/nginx/ssl/{{ item.name }} mode=660
-  with_items: nginx_websites
-  when: item.ssl.use and not generatekey
+# TODO...
+#- name: COPY | Deploy SSL keys if needed
+#  copy: src=keys/{{ item.name }}/{{ item.name }}.crt dest=/etc/nginx/ssl/{{ item.name }} mode=660
+#  copy: src=keys/{{ item.name }}/{{ item.name }}.key dest=/etc/nginx/ssl/{{ item.name }} mode=660
+#  with_items: nginx_websites
+#  when: item.ssl.use and not generatekey
 
 # TODO:
 # - deploy defaults files (index.html/index.php) allready in files/
