@@ -10,6 +10,7 @@ nginx_resolver:
   hosts: ['208.67.222.222', '208.67.220.220'] # OpenDNS
   valid: '300'
   timeout: '5'
+nginx_error_log_level: 'warn' # http://nginx.org/en/docs/ngx_core_module.html#error_log
 
 #
 # Load upstream

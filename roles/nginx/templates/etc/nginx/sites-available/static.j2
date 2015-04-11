@@ -8,9 +8,10 @@ server {
 	index index.htm index.html;
 
 	location / {
-		try_files $uri $uri/;
+		try_files $uri $uri/ =404;
 	}
 	include /etc/nginx/helpers/static-expires;
+	include /etc/nginx/helpers/no-ht;
 }
 
 {% include 'REDIRECT.j2' %}
