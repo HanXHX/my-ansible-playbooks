@@ -18,5 +18,9 @@
 - name: TEMPLATE | Put config to BackupPC server
   template: src=host_config.pl.j2 dest='/etc/backuppc/{{ hostname }}.pl' owner=backuppc group=www-data mode=0640
   delegate_to: '{{ backuppc_server_name }}'
+  notify: restart backuppc
 
-
+- name: LINEINFILE | Add host to BackupPC server
+  lineinfile: dest=/etc/backuppc/hosts line="{{ hostname }}\t0\tbackuppc"
+  delegate_to: '{{ backuppc_server_name }}'
+  notify: restart backuppc
