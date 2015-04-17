@@ -1,0 +1,13 @@
+---
+
+- name: FAIL | If kernel doesn't support Docker
+  fail: msg="Install recent kernel first"
+  when: ansible_kernel|version_compare('3.10', '<')
+
+- name: STAT | Check if docker is installed
+  stat: path=/usr/bin/docker
+  register: docker
+
+- name: SHELL | Install docker
+  shell: curl -sSL https://get.docker.com/ | sh
+  when: not docker.stat.exists
