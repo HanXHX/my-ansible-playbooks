@@ -85,8 +85,8 @@ Ideas for future
   - Manage replication
 - Services:
   - PostgreSQL
-  - [Redis Sentinel](http://redis.io/topics/sentinel) (Redis 2.8 available at Dotdeb and Backports)
-  - [Redis Cluster](http://redis.io/topics/cluster-tutorial) (Redis 3.x still in beta)
+  - [Redis Sentinel](http://redis.io/topics/sentinel) (available in Dotdeb and Backports)
+  - [Redis Cluster](http://redis.io/topics/cluster-tutorial) (Redis 3 available in Dotdeb)
   - [Elasticsearch](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html)
   - [Gitlab](https://about.gitlab.com/downloads/)
 - Web interfaces:
