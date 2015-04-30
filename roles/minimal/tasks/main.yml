@@ -39,13 +39,21 @@
   with_items: minimal_packages
 
 # Note: explicit Debian version (wheezy-backports)
-- name: APT | Install Intel Microcode if needed
+- name: APT | Install Intel Microcode if needed (Wheezy)
   apt: pkg=intel-microcode state=latest default_release=wheezy-backports
-  when: ansible_processor[0].find('Intel') != -1 and ansible_architecture == 'x86_64'
+  when: ansible_processor[0].find('Intel') != -1 and ansible_architecture == 'x86_64' and ansible_distribution_release == 'wheezy'
 
-- name: APT | Install AMD Microcode if needed
+- name: APT | Install AMD Microcode if needed (Wheezy)
   apt: pkg=amd64-microcode  state=latest default_release=wheezy-backports
-  when: ansible_processor[0].find('AMD') != -1 and ansible_architecture == 'x86_64'
+  when: ansible_processor[0].find('AMD') != -1 and ansible_architecture == 'x86_64' and ansible_distribution_release == 'wheezy'
+
+- name: APT | Install Intel Microcode if needed (Jessie)
+  apt: pkg=intel-microcode state=latest
+  when: ansible_processor[0].find('Intel') != -1 and ansible_architecture == 'x86_64' and ansible_distribution_release == 'jessie'
+
+- name: APT | Install AMD Microcode if needed (Jessie)
+  apt: pkg=amd64-microcode  state=latest
+  when: ansible_processor[0].find('AMD') != -1 and ansible_architecture == 'x86_64' and ansible_distribution_release == 'jessie'
 
 - name: FILE | Delete shitty Puppet repository
   file: path=/etc/apt/sources.list.d/puppetlabs.list state=absent

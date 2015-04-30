@@ -1,5 +1,9 @@
 ---
 
+- name: FAIL | If Debian Jessie (see README.md)
+  fail: msg="MongoDB is not available (yet?) for Debian Jessie. See README.md!"
+  when: ansible_distribution_release == "jessie" 
+
 - name: SET_FACT | Set init.d script name
   set_fact: mongodb_init_name='mongod'
 
