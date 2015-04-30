@@ -23,6 +23,7 @@ minimal_packages:
   - openntpd
   - python-pip
   - pwgen
+  - reptyr
   - rsyslog
   - rsync
   - screen
