@@ -27,6 +27,7 @@ minimal_packages:
   - rsyslog
   - rsync
   - screen
+  - strace
   - sudo
   - sysstat
   - tcpdump
