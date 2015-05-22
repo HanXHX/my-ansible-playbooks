@@ -1,0 +1,8 @@
+---
+
+- name: APT_KEY | Install aptly gpg key
+  apt_key: keyserver='keys.gnupg.net' id='E083A3782A194991' state=present
+
+- name: APT_REPOSITORY | Add aptly repository
+  apt_repository: repo='deb http://repo.aptly.info/ squeeze main' state=present
+

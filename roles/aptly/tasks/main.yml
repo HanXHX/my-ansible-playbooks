@@ -1,0 +1,8 @@
+---
+
+- name: INCLUDE wheezy.yml
+  include: wheezy.yml
+  when: ansible_distribution_release == 'wheezy'
+
+- name: APT | Install aptly
+  apt: pkg=aptly state=latest update_cache=yes cache_valid_time=3600

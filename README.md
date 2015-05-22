@@ -9,7 +9,7 @@ The goal of this project is to create the "perfect" environement for PHP on Debi
 Available roles
 ---------------
 
-### Systems 
+### Systems
 
 - [Minimal](roles/minimal)
 - [Dotdeb](roles/dotdeb)
@@ -41,13 +41,14 @@ Available roles
 - [Redis](roles/redis)
 - [RethinkDB](roles/rethinkdb)
 
-### Backup 
+### Backup
 
 - [BackupPC Server](roles/backuppc)
 - [BackupPC host](roles/backuppc_host) (backupped)
 
 ### Misc
 
+- [aptly](roles/aptly)
 - [Jenkins](roles/jenkins)
 - [MTA](roles/mta) (Postfix + OpenDKIM)
 - [Newrelic](roles/newrelic_common)
