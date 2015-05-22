@@ -25,6 +25,12 @@ mongodb_users:
     roles: 'readWrite'
 ```
 
+Notes
+-----
+
+- MongoDB "official" is not available for Jessie.
+
+
 TODO
 ----
 

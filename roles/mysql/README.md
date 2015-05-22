@@ -58,6 +58,7 @@ Notes
 TODO
 ----
 
+- Support Jessie
 - Test "official" releases of MySQL [http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/](http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
 - Manage Galera and other tools
 - Manage replication

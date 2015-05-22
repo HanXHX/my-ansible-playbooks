@@ -1,7 +1,12 @@
 ---
 
-- name: INCLUDE | PHP tools
-  include: php.yml
+- name: INCLUDE | PHP tools (Wheezy)
+  include: php_wheezy.yml
+  when: ansible_distribution_release == "wheezy"
+
+- name: INCLUDE | PHP tools (Jessie)
+  include: php_wheezy.yml
+  when: ansible_distribution_release == "jessie"
 
 - name: INCLUDE | APT related (install)
   include: apt.yml

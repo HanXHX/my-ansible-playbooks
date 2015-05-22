@@ -5,6 +5,6 @@
   pre_tasks:
     - name: Check host is Debian Wheezy
       fail: msg='Not a Debian Wheezy!'
-      when: ansible_distribution != 'Debian' or ansible_distribution_release != "wheezy"
+      when: ansible_distribution != 'Debian' or ansible_distribution_release != "wheezy" or ansible_distribution_release != "jessie"
   roles:
     - aptly 
