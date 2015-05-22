@@ -54,16 +54,13 @@ Available roles
 - [Newrelic](roles/newrelic_common)
 
 
-
 TODO List
 ---------
 
 - Better dotfiles :p
-- Create MySQL users/databases... Find any tip to create table?
 - Create standard users (with sudo)
 - PHP-FPM socket = tcp
-- Better "save" management in redis. Use a loop instead of using save, save2, save3...
-- Nginx logrotate management
+- Logrotate management (Nginx)
 
 
 Ideas for future
@@ -72,15 +69,12 @@ Ideas for future
 - Configure firewall per service used (tcp/3306 if mysql is installed)
 - Try [IRC module](http://docs.ansible.com/irc_module.html) (for fun only)
 - Try Vagrant with many hosts (example: DB1 Master, DB2 Slave, Nginx proxy-cache, Nginx+PHP/FPM)
-- Manage Debian Jessie (current testing). For example: Jessie doesn't have yet Dotdeb and Backport repository. Create 2 branches?
 - IPv6 management (works with Vagrant/Virtualbox?)
-- Better bashrc/vimrc
 - Better management of OpenSSH
 - Auto install and configure Wordpress :)
 - Syslog to...? :)
 - Monitoring (Nagios or Shinken)
 - Nginx:
-  - No-www redirect to www...
   - Reverse proxy cache
   - Have fun with [ngx\_pagespeed](https://github.com/pagespeed/ngx_pagespeed) (available in Dotdeb: nginx-full... find any others place)
 - MySQL:
@@ -100,7 +94,6 @@ Ideas for future
   - [phpredis](https://github.com/nicolasff/phpredis) (Debian Package only available on Debian Jessie/Sid or Dotdeb) + feature: Session management in Redis
 - Support [FreeBSD](http://www.freebsd.org)!
 - Support [Devuan](https://www.devuan.org)
-- Use Docker instead of Virtualbox
 
 Notes
 -----
