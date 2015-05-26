@@ -1,0 +1,10 @@
+---
+
+- name: APT_KEY | Get elastic.co GPG key
+  apt_key: id=D88E42B4 keyserver=pgp.mit.edu state=present
+
+- name: APT_REPOSITORY | Add elastic.co repository
+  apt_repository: repo='deb http://packages.elastic.co/elasticsearch/1.5/debian stable main' state=present
+
+- name: APT | Install dependencies
+  apt: pkg=openjdk-7-jre update_cache=yes cache_valid_time=3600 state=latest

@@ -33,9 +33,9 @@ Available roles
 - [PHP Newrelic](roles/php-newrelic)
 - [Phalcon framework](roles/php-phalcon)
 
-
 ### Databases
 
+- [Elasticsearch](roles/elasticsearch)
 - [MySQL / MariaDB / Percona Server](roles/mysql)
 - [MongoDB](roles/mongodb)
 - [Redis](roles/redis)
@@ -83,7 +83,6 @@ Ideas for future
   - PostgreSQL
   - [Redis Sentinel](http://redis.io/topics/sentinel) (available in Dotdeb and Backports)
   - [Redis Cluster](http://redis.io/topics/cluster-tutorial) (Redis 3 available in Dotdeb)
-  - [Elasticsearch](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html)
   - [Gitlab](https://about.gitlab.com/downloads/)
 - Web interfaces:
   - [Wordpress](https://wordpress.org/)
