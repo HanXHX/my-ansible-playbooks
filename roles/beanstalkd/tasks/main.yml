@@ -1,0 +1,8 @@
+---
+
+- name: APT | Install Beanstalkd
+  apt: pkg=beanstalkd update_cache=yes cache_valid_time=3600 state=latest
+
+- name: TEMPLATE | Deploy /etc/default/beanstalkd
+  template: src=etc/default/beanstalkd.j2 dest=/etc/default/beanstalkd
+  notify: restart beanstalkd

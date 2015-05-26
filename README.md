@@ -41,6 +41,10 @@ Available roles
 - [Redis](roles/redis)
 - [RethinkDB](roles/rethinkdb)
 
+### Message Queues
+
+- [Beanstalkd](roles/beanstalkd)
+
 ### Backup
 
 - [BackupPC Server](roles/backuppc)

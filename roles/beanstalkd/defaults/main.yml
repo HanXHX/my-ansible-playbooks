@@ -1,0 +1,3 @@
+beanstalkd_listen_ip: '127.0.0.1'
+beanstalkd_listen_port: '11300'
+beanstalkd_extra: ''

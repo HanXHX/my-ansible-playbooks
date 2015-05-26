@@ -1,0 +1,27 @@
+##########################################################################################
+# {{ ansible_managed }}
+##########################################################################################
+
+{% if ansible_distribution_release == 'wheezy' %}
+## Defaults for the beanstalkd init script, /etc/init.d/beanstalkd on
+## Debian systems. Append ``-b /var/lib/beanstalkd'' for persistent
+## storage.
+BEANSTALKD_LISTEN_ADDR={{ beanstalkd_listen_ip }}
+BEANSTALKD_LISTEN_PORT={{ beanstalkd_listen_port }}
+DAEMON_OPTS="-l $BEANSTALKD_LISTEN_ADDR -p $BEANSTALKD_LISTEN_PORT {{ beanstalkd_extra }}"
+
+## Uncomment to enable startup during boot.
+START=yes
+{% else %}
+## Defaults for the beanstalkd init script, /etc/init.d/beanstalkd on
+## Debian systems.
+
+BEANSTALKD_LISTEN_ADDR={{ beanstalkd_listen_ip }}
+BEANSTALKD_LISTEN_PORT={{ beanstalkd_listen_port }}
+
+# You can use BEANSTALKD_EXTRA to pass additional options. See beanstalkd(1)
+# for a list of the available options. Uncomment the following line for
+# persistent job storage.
+#BEANSTALKD_EXTRA="-b /var/lib/beanstalkd"
+BEANSTALKD_EXTRA="{{ beanstalkd_extra }}"
+{% endif %}
