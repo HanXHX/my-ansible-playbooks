@@ -5,5 +5,5 @@
   notify: [ update tzdata, restart cron ]
 
 - name: COPY | Set default timezone
-  copy: content={{ system_timezone }} dest=/etc/timezone owner=root group=root mode=0644
+  copy: content="{{ system_timezone }}\n" dest=/etc/timezone owner=root group=root mode=0644
   notify: [ update tzdata, restart cron ]
