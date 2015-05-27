@@ -1,8 +1,9 @@
 # -------------------------
 # APT configuration
 # -------------------------
-debian_backport_host: "ftp.debian.org"
-apt_default_host: "ftp.fr.debian.org"
+# See: http://http.debian.net/
+debian_backport_host: "httpredir.debian.org"
+apt_default_host: "httpredir.debian.org"
 
 # -------------------------
 # System configuration
