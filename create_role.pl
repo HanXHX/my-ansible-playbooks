@@ -22,6 +22,7 @@ GetOptions(
 	'defaults' => sub { $dirs->{defaults} = 1 },
 	'files' => sub { $dirs->{files} = 1 },
 	'handlers' => sub { $dirs->{handlers} = 1 },
+	'meta' => sub { $dirs->{meta} = 1 },
 	'tasks' => sub { $dirs->{tasks} = 1 },
 	'templates' => sub { $dirs->{templates} = 1 },
 	'vars' => sub { $dirs->{vars} = 1 },
