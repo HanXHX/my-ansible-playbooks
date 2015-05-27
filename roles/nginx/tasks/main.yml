@@ -13,6 +13,11 @@
 - name: FILE | Create /etc/nginx/ssl
   file: dest=/etc/nginx/ssl owner=root mode=0755 state=directory
 
+- name: COMMAND | Creates DH file
+  command: openssl dhparam -out {{ nginx_dh_path }} {{ nginx_dh_length }}
+  args:
+    creates: "{{ nginx_dh_path }}"
+
 - name: TEMPLATE | Deploy all helpers
   template: src={{ item }} dest=/etc/nginx/helpers/{{ item | basename | regex_replace('\.j2$','') }}
   with_fileglob: '../templates/etc/nginx/helpers/*.j2'

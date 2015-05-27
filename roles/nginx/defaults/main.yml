@@ -11,6 +11,7 @@ nginx_resolver:
   valid: '300'
   timeout: '5'
 nginx_error_log_level: 'warn' # http://nginx.org/en/docs/ngx_core_module.html#error_log
+nginx_dh_length: 2048
 
 #
 # Load upstream
