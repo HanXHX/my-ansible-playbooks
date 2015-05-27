@@ -1,0 +1,7 @@
+---
+
+- name: FILE | Delete shitty Puppet repository
+  file: path=/etc/apt/sources.list.d/puppetlabs.list state=absent
+
+- name: APT | Uninstall shitty Puppet
+  apt: pkg=puppet state=absent update_cache=yes cache_valid_time=3600

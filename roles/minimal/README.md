@@ -24,6 +24,11 @@ Variables
 - system\_locales: list of locales
 - system\_timezone
 
+TODO
+----
+
+- Provide many syslog daemons: rsyslog, syslog-ng...
+
 Notes
 -----
 No dependencies!

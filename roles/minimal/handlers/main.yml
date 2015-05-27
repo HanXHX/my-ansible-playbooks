@@ -8,5 +8,8 @@
 - name: restart rsyslog
   action: service name=rsyslog state=restarted enabled=yes
 
-- name: update timezone
+- name: update tzdata
   command: dpkg-reconfigure -f noninteractive tzdata
+
+- name: locale-gen
+  command: locale-gen
