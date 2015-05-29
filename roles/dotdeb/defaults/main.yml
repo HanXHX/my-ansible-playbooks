@@ -1,3 +1,0 @@
-# See: https://www.dotdeb.org/mirrors/
-dotdeb_apt_host: 'packages.dotdeb.org'
-dotdeb_php_version: '5.6'
