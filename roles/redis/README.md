@@ -1,14 +1,4 @@
-Redis role
-==========
+Dotdeb Role
+===========
 
-Actions
--------
-
-- Install and configure [Redis](http://redis.io/) 
-
-Variables
----------
-
-It'a an easy key/value hash... do you need my help? :)
-
-
+This role is moved to a dedicated repository: https://github.com/HanXHX/ansible-redis
