@@ -12,7 +12,7 @@ Available roles
 ### Systems
 
 - [Minimal](roles/minimal)
-- [Dotdeb](roles/dotdeb)
+- [Dotdeb](roles/dotdeb)(1)
 - [ZFS](roles/zfs)
 - [Docker](roles/docker)
 
@@ -38,7 +38,7 @@ Available roles
 - [Elasticsearch](roles/elasticsearch)
 - [MySQL / MariaDB / Percona Server](roles/mysql)
 - [MongoDB](roles/mongodb)
-- [Redis](roles/redis)
+- [Redis](roles/redis)(1)
 - [RethinkDB](roles/rethinkdb)
 
 ### Message Queues
@@ -56,6 +56,9 @@ Available roles
 - [Jenkins](roles/jenkins)
 - [MTA](roles/mta) (Postfix + OpenDKIM)
 - [Newrelic](roles/newrelic_common)
+
+
+(1) Role moved to a dedicated repository
 
 
 TODO List
