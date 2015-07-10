@@ -1,9 +1,0 @@
----
-
-- name: COPY | Set /etc/localtime to {{ system_timezone }}
-  copy: src=/usr/share/zoneinfo/{{ system_timezone }} dest=/etc/localtime owner=root group=root mode=0644
-  notify: [ update tzdata, restart cron ]
-
-- name: COPY | Set default timezone
-  copy: content="{{ system_timezone }}\n" dest=/etc/timezone owner=root group=root mode=0644
-  notify: [ update tzdata, restart cron ]

@@ -1,3 +1,0 @@
-minimal_microcode_apt_distribution: 'jessie'
-distro_packages:
-  - glances
