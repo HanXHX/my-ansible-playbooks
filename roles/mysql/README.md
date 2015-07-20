@@ -19,7 +19,7 @@ Variables
 
 ### Configuration
 
-- mysql\_cnf: key/value hash see [defaults/main.yml](default vars file)
+- mysql\_cnf: key/value hash see [default vars file](defaults/main.yml)
 
 ### Databases
 
@@ -36,18 +36,18 @@ mysql\_users:
     priv: hihi.*:ALL
 ```
 
-Check "priv" syntax in [http://docs.ansible.com/mysql_user_module.html](mysql_user module documentation)
+Check "priv" syntax in [mysql_user module documentation](http://docs.ansible.com/mysql_user_module.html)
 
 
 ### MariaDB
 
 - mariadb\_version (5.5, 10.0, 10.1)
-- mariadb\_repository (see: [http://mariadb.org/mariadb/repositories/](MariaDB repositories tool))
+- mariadb\_repository (see: [MariaDB repositories tool](http://mariadb.org/mariadb/repositories/))
 
 ### Percona
 
 - percona\_version (5.5, 5.6)
-- percona\_repository (see: [http://www.percona.com/doc/percona-server/5.5/installation/apt_repo.html](Percona APT doc))
+- percona\_repository (see: [Percona APT doc](http://www.percona.com/doc/percona-server/5.5/installation/apt_repo.html))
 
 Notes
 -----
@@ -62,4 +62,4 @@ TODO
 - Test "official" releases of MySQL [http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/](http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
 - Manage Galera and other tools
 - Manage replication
-- You can secure your password with [http://docs.ansible.com/playbooks_vault.html](Ansible Vault)
+- You can secure your password with [Ansible Vault](http://docs.ansible.com/playbooks_vault.html)
