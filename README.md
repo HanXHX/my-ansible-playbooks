@@ -23,12 +23,12 @@ Available roles
 
 ### HTTP
 
-- [Nginx](roles/nginx)
+- [Nginx](roles/nginx)(1)
 - [SSL Autosign](roles/ssl_autosign) (created autosign cert/key)
 
 ### PHP
 
-- [PHP](roles/php) (PHP + PHP-FPM)
+- [PHP](roles/php)(1)
 - [PHP Xdebug](roles/php-xdebug)
 - [PHP Newrelic](roles/php-newrelic)
 - [Phalcon framework](roles/php-phalcon)
