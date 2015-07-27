@@ -11,7 +11,7 @@ Available roles
 
 ### Systems
 
-- [Minimal](roles/minimal)
+- [Minimal](roles/minimal)(1)
 - [Dotdeb](roles/dotdeb)(1)
 - [ZFS](roles/zfs)
 - [Docker](roles/docker)
@@ -29,7 +29,7 @@ Available roles
 ### PHP
 
 - [PHP](roles/php)(1)
-- [PHP Xdebug](roles/php-xdebug)
+- [PHP Xdebug](roles/php-xdebug)(1)
 - [PHP Newrelic](roles/php-newrelic)
 - [Phalcon framework](roles/php-phalcon)
 

@@ -1,9 +1,0 @@
-#
-# Xdebug configuration
-#
-# http://xdebug.org/docs/all_settings
-#
-xdebug_default_enable: 1
-xdebug_remote_enable: 1
-xdebug_profiler_enable: 1
-
