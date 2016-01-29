@@ -1,9 +1,0 @@
----
-- name: restart backuppc
-  action: service name=backuppc state=restarted enabled=yes
-
-- name: reload nginx
-  action: service name=nginx state=reloaded enabled=yes
-
-- name: restart fcgiwrap
-  action: service name=fcgiwrap state=restarted enabled=yes
